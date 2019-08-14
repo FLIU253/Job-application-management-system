@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
-import MainCard from '../components/main-card.component';
+import ToApply from '../components/to-apply.component';
+import AppliedTo from '../components/applied-to.component';
+import Interview from '../components/interview.component';
+import Offered from '../components/offered.component';
+import Rejected from '../components/rejected.component';
 import styled from 'styled-components';
 
 const CardSection = styled.div`
@@ -12,11 +16,11 @@ class HomePage extends Component{
   render(){
     return (
       <CardSection>
-      <MainCard title = "To apply"/>
-      <MainCard title = "Applied to"/>
-      <MainCard title = "Interview"/>
-      <MainCard title = "Rejected"/>
-      <MainCard title = "Offered"/>
+      <ToApply title = "To apply" />
+      <AppliedTo title = "Applied To"/>
+      <Interview title = "Interview"/>
+      <Rejected title = "Rejeced"/>
+      <Offered title = "Offered"/>
    </CardSection>
     );
   }
