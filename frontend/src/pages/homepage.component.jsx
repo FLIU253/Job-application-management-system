@@ -19,7 +19,7 @@ class HomePage extends Component{
       <ToApply title = "To apply" />
       <AppliedTo title = "Applied To"/>
       <Interview title = "Interview"/>
-      <Rejected title = "Rejeced"/>
+      <Rejected title = "Rejected"/>
       <Offered title = "Offered"/>
    </CardSection>
     );
