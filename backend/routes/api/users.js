@@ -379,5 +379,69 @@ router.delete("/rejected/:rejected_id", auth, async (req, res) => {
   }
 });
 
+// @route   get api/toApply
+// @desc    get toApply array
+// @access  Private
+router.get('/toApply', auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('toApply');
+    res.json(user);
+  }catch{
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
 
+// @route   get api/appliedTo
+// @desc    get appliedTo array
+// @access  Private
+router.get('/appliedTo', auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('appliedTo');
+    res.json(user);
+  }catch{
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
+
+// @route   get api/interview
+// @desc    get interview array
+// @access  Private
+router.get('/interview', auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('interview');
+    res.json(user);
+  }catch{
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
+
+// @route   get api/offered
+// @desc    get offered array
+// @access  Private
+router.get('/offered', auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('offered');
+    res.json(user);
+  }catch{
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
+
+
+// @route   get api/rejected
+// @desc    get rejected array
+// @access  Private
+router.get('/rejected', auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('rejected');
+    res.json(user);
+  }catch{
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+})
 module.exports = router;
