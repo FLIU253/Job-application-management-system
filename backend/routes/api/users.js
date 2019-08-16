@@ -270,4 +270,114 @@ router.put('/rejected', [auth, [
     }
 })
 
+
+// @route   DELETE api/toApply/:toApply_id
+// @desc    Delete an item from toApply array
+// @access  Private
+router.delete("/toApply/:toApply_id", auth, async (req, res) => {
+    try{
+      const user = await User.findById(req.user.id).select('-password');
+
+      //get remove index
+      const removeIndex = user.toApply.map(item => item.id).indexOf(req.params.toApply_id);
+
+      user.toApply.splice(removeIndex, 1);
+
+      await user.save();
+
+      res.json(user);
+    }catch(err){
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+});
+
+// @route   DELETE api/appliedTo/:appliedTo_id
+// @desc    Delete an item from appliedTo array
+// @access  Private
+router.delete("/appliedTo/:appliedTo_id", auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('-password');
+
+    //get remove index
+    const removeIndex = user.appliedTo.map(item => item.id).indexOf(req.params.appliedTo_id);
+
+    user.appliedTo.splice(removeIndex, 1);
+
+    await user.save();
+
+    res.json(user);
+  }catch(err){
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// @route   DELETE api/interview/:interview_id
+// @desc    Delete an item from interview array
+// @access  Private
+router.delete("/interview/:interview_id", auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('-password');
+
+    //get remove index
+    const removeIndex = user.interview.map(item => item.id).indexOf(req.params.interview_id);
+
+    user.interview.splice(removeIndex, 1);
+
+    await user.save();
+
+    res.json(user);
+  }catch(err){
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// @route   DELETE api/offered/:offered_id
+// @desc    Delete an item from offered array
+// @access  Private
+router.delete("/offered/:offered_id", auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('-password');
+
+    //get remove index
+    const removeIndex = user.offered.map(item => item.id).indexOf(req.params.offered_id);
+
+    user.offered.splice(removeIndex, 1);
+
+    await user.save();
+
+    res.json(user);
+  }catch(err){
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// @route   DELETE api/rejected/:rejected_id
+// @desc    Delete an item from rejected array
+// @access  Private
+router.delete("/rejected/:rejected_id", auth, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select('-password');
+
+    //get remove index
+    const removeIndex = user.rejected.map(item => item.id).indexOf(req.params.rejected_id);
+
+    user.rejected.splice(removeIndex, 1);
+
+    await user.save();
+
+    res.json(user);
+  }catch(err){
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
 module.exports = router;
