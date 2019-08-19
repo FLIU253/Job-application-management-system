@@ -5,6 +5,7 @@ import Interview from '../components/interview.component';
 import Offered from '../components/offered.component';
 import Rejected from '../components/rejected.component';
 import styled from 'styled-components';
+import Header from '../components/header.component';
 
 const CardSection = styled.div`
   display: grid;
@@ -15,13 +16,16 @@ class HomePage extends Component{
 
   render(){
     return (
+      <div>
+      <Header/>
       <CardSection>
       <ToApply title = "To apply" />
       <AppliedTo title = "Applied To"/>
       <Interview title = "Interview"/>
       <Rejected title = "Rejected"/>
       <Offered title = "Offered"/>
-   </CardSection>
+      </CardSection>
+      </div>
     );
   }
 }
