@@ -4,13 +4,31 @@ import HomePage from './pages/homepage.component';
 import Login from './pages/login.component';
 import Register from './pages/register.component';
 import Alert from './components/alert.component';
+import {loadUser} from './redux/actions/auth';
+import store from './redux/store';
+import setAuthToken from './utils/setAuthToken';
+import {Route, Switch} from 'react-router-dom';
+
+if(localStorage.token){
+  setAuthToken(localStorage.token);
+}
 
 export default class App extends Component{
+
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+   
   render() {
     return(
       <div>
         <Alert/>
-        <Register/>
+        <Switch>
+        <Route  exact path = "/login" component = {Login}/>
+        <Route  exact path = "/" component = {Login}/>
+        <Route exact path = "/register" component = {Register}/>
+        <Route exact path = "/home" component = {HomePage}/>
+        </Switch>
       </div>
     );
   }
