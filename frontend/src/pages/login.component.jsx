@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import FormInput from '../components/form-input.component';
+import CustomButton from '../components/custom-button.component';
 
 const Login = styled.div`
   display: flex;
@@ -9,24 +10,6 @@ const Login = styled.div`
   align-items: center;
   text-align: center;
   min-height: 80vh;
-`;
-
-const SignInButton = styled.button`
-  transition: all 0.15s ease-out 0s;
-  background: transparent;
-  color: #fff;
-  border: 1px solid #fff;
-  width: 250px;
-  padding: 1em;
-  font-size: 1.1em;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  :hover{
-    background: #fff;
-    color: #89609E;
-  }
 `;
 
 const CreateAccLink = styled.a`
@@ -39,13 +22,13 @@ const CreateAccLink = styled.a`
 const LoginPage = () => (
   <Login>
       <h1 style = {{color: '#fff'}}>JAMS</h1>
-      <div style = {{margin: '0.5em 0'}}>
-      <FormInput type="email" required name="email"/>
+      <div>
+      <FormInput type="email" required name="email" placeholder = "email"/>
       </div>
-      <div style = {{margin: '0.5em 0'}}> 
-      <FormInput type="password" required name = "password"/>
+      <div> 
+      <FormInput type="password" required name = "password" placeholder = "password"/>
       </div>
-      <SignInButton>Login</SignInButton>
+      <CustomButton>Login</CustomButton>
       <CreateAccLink href="/">Create new account</CreateAccLink>
   </Login>
 );

@@ -8,6 +8,7 @@ const InputSection = styled.input`
   width: 325px;
   padding: 1em 1em;
   font-size: 1.1em;
+  margin: 0.5em 0;
 `;
 
 const FormInput = ({handleChange, label, ...otherProps}) => (
