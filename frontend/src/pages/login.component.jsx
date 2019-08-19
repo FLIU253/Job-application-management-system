@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {login} from '../redux/actions/auth';
 import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+
 const Login = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,14 +15,6 @@ const Login = styled.div`
   align-items: center;
   text-align: center;
   min-height: 80vh;
-`;
-
-const CreateAccLink = styled.a`
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  :hover{
-    color: #fff;
-  }
 `;
 const LoginPage = ({login, isAuthenticated}) => {
 
@@ -55,7 +49,7 @@ const LoginPage = ({login, isAuthenticated}) => {
         </div>
         <CustomButton>Login</CustomButton>
     </form>
-      <CreateAccLink href="/">Create new account</CreateAccLink>
+      <Link to="/register" className = "link-to">Create new account</Link>
   </Login>
   );
 };

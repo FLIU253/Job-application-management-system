@@ -7,6 +7,7 @@ import {register} from '../redux/actions/auth';
 import {setAlert} from '../redux/actions/alert';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Register = styled.div`
   display: flex;
@@ -15,14 +16,6 @@ const Register = styled.div`
   align-items: center;
   text-align: center;
   min-height: 80vh;
-`;
-
-const Signin = styled.a`
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  :hover{
-    color: #fff;
-  }
 `;
 
 const RegisterPage = ({register, setAlert, isAuthenticated }) => {
@@ -63,7 +56,7 @@ const RegisterPage = ({register, setAlert, isAuthenticated }) => {
             <FormInput type = "password" placeholder = "password"  name= "password2" value = {password2} handleChange = {e => onChange(e)}  minLength = '6' required/>
             <CustomButton>Register</CustomButton>
            </form>
-           <Signin href="/">Sign In</Signin>
+           <Link className = "link-to" to="/login">Sign In</Link>
         </Register>
     );
 }
