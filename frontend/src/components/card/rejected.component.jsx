@@ -82,10 +82,11 @@ class Rejected extends Component{
         }
            {this.state.addNewCard ? (
                 <CardWrapper>
-                Company Name: <input type="text" required/>
-                Position Name: <input type="text" required/>
-                Application Link: <input type="text" required/>
-                <TextArea type = "text" required rows="5"></TextArea>
+                <p>Company Name:</p> <input type="text" required/>
+                <p>Position Name:</p> <input type="text" required/>
+                <p>Application Link:</p> <input type="text" />
+                <p>Location:</p> <input type="text" />
+                <br/>
                 <button>Add</button>
                 <span> or </span>
                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>

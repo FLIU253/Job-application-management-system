@@ -5,3 +5,6 @@
 .link-to:hover{
     color: #fff;
 }
+p{
+    margin: 0;
+}
