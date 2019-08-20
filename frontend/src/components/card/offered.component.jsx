@@ -17,13 +17,6 @@ const CardWrapper = styled.div`
     margin: 10px;
 `;
 
-const TextArea = styled.textarea`
-    width: 100%;
-    display: block;
-    margin-bottom: .5em;
-    border: 0px none;
-    border-bottom: 1px solid #bdc3c7;
-`;
 
 const AddCard = styled.div`
     display: block;

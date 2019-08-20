@@ -26,3 +26,5 @@ export const REJECTED_ERROR = 'REJECTED_ERROR';
 
 export const GET_OFFERED = 'GET_OFFERED';
 export const OFFERED_ERROR = 'OFFERED_ERROR';
+
+export const ADD_TO_APPLY = 'ADD_TO_APPLY';

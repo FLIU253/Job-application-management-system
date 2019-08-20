@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getToApply} from '../../redux/actions/toApply';
+import {getToApply, addToApply} from '../../redux/actions/toApply';
 import SubCard from './sub-card.component';
+
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -15,14 +16,6 @@ const Card = styled.div`
 
 const CardWrapper = styled.div`
     margin: 10px;
-`;
-
-const TextArea = styled.textarea`
-    width: 100%;
-    display: block;
-    margin-bottom: .5em;
-    border: 0px none;
-    border-bottom: 1px solid #bdc3c7;
 `;
 
 const AddCard = styled.div`
@@ -47,10 +40,16 @@ class ToApply extends Component{
     constructor(props){
         super(props);
         this.state = {
-            addNewCard: false
+            addNewCard: false,
+            companyName: '',
+            jobTitle: '',
+            applicationUrl: '',
+            location: '',
+            deadlineDate: ''
         }
     }
 
+    
     componentDidMount(){
         this.props.getToApply();
     }
@@ -64,6 +63,14 @@ class ToApply extends Component{
         this.setState({addNewCard: false});
     }
 
+    onChange = e => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+    onSubmit = e => {
+        const {companyName, jobTitle, applicationUrl, location, deadlineDate} = this.state;
+        e.preventDefault();
+        this.props.addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
+    }
     render(){
 
         const {title, toApply:{loading, toApplyList: {toApply}}} = this.props;
@@ -81,15 +88,17 @@ class ToApply extends Component{
             }
             {this.state.addNewCard ? (
                 <CardWrapper>
-                <p>Company Name:</p> <input type="text" required/>
-                <p>Position Name:</p> <input type="text" required/>
-                <p>Application Link:</p> <input type="text" />
-                <p>Location:</p> <input type="text" />
-                <p>Deadline Date:</p> <input type="date" />
+               <form onSubmit = {this.onSubmit}>
+               <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {this.state.companyName} onChange = {this.onChange} required/>
+                <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {this.state.jobTitle} onChange = {this.onChange} required/>
+                <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {this.state.applicationUrl} onChange = {this.onChange} />
+                <p>Location:</p> <input type="text"  name =  "location" value = {this.state.location} onChange = {this.onChange}/>
+                <p>Deadline Date:</p> <input type="date" name =  "deadlineDate" value = {this.state.deadlineDate} onChange = {this.onChange} />
                 <br/>
                 <button>Add</button>
                 <span> or </span>
                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
+               </form>
             </CardWrapper>
             ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
@@ -99,11 +108,12 @@ class ToApply extends Component{
 
 ToApply.propTypes = {
     getToApply: PropTypes.func.isRequired,
-    toApply: PropTypes.object.isRequired
+    toApply: PropTypes.object.isRequired,
+    addToApply: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     toApply: state.toApply
 })
 
-export default connect(mapStateToProps, {getToApply})(ToApply);
+export default connect(mapStateToProps, {getToApply, addToApply})(ToApply);
