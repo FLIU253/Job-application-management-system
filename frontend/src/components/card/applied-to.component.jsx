@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
+import {getAppliedTo} from '../../redux/actions/appliedTo';
+import SubCard from './sub-card.component';
+import PropTypes from 'prop-types';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -33,29 +37,51 @@ const AddCard = styled.div`
         color: black;
     }
 `;
-
+const Cancel = styled.span`
+    cursor: pointer;
+`;
 class AppliedTo extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             addNewCard: false
         }
     }
 
+    componentDidMount(){
+        this.props.getAppliedTo();
+    }
     onAddNewCardClick =(e) => {
         e.preventDefault();
         this.setState({addNewCard: true});
     }
 
+    onCancelClick = (e) => {
+        e.preventDefault();
+        this.setState({addNewCard: false});
+    }
+
     render(){
 
-        const {title} = this.props;
+        const {title, appliedTo:{loading, appliedToList: {appliedTo}}} = this.props;
+
+        console.log(appliedTo);
 
         return(
             <Card>
            <h3>{title}</h3>
-            {this.state.addNewCard ? (
+           {loading ? <h1>LOADING</h1> : 
+                <div>
+                {appliedTo.length > 0 ? (
+                    appliedTo.map(item => 
+                    <SubCard key = {item._id} data = {item}/>
+                    )
+                ) : null}
+                </div>
+            }
+            
+           {this.state.addNewCard ? (
                 <CardWrapper>
                 Company Name: <input type="text" required/>
                 Position Name: <input type="text" required/>
@@ -63,13 +89,21 @@ class AppliedTo extends Component{
                 <TextArea type = "text" required rows="5"></TextArea>
                 <button>Add</button>
                 <span> or </span>
-                <span> Cancel </span>
+                <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
             </CardWrapper>
-            ) : null}
-            <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>
+            ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
         );
     }
 }
 
-export default AppliedTo;
+AppliedTo.propTypes = {
+    getAppliedTo: PropTypes.func.isRequired,
+    appliedTo: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    appliedTo: state.appliedTo
+})
+
+export default connect(mapStateToProps, {getAppliedTo})(AppliedTo);

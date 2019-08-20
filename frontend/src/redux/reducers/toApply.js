@@ -20,7 +20,7 @@ export default function(state=initialState, action){
         case TO_APPLY_ERROR:
             return {
                 ...state,
-                error: payload,
+                errors: payload,
                 loading: false
             }
         default:

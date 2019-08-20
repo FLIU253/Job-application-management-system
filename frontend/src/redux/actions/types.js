@@ -14,3 +14,6 @@ export const LOGOUT = 'LOGOUT';
 
 export const GET_TO_APPLY= 'GET_TO_APPLY';
 export const TO_APPLY_ERROR = 'TO_APPLY_ERROR';
+
+export const GET_APPLIED_TO = 'GET_APPLIED_TO';
+export const APPLIED_ERROR = 'APPLIED_ERROR';

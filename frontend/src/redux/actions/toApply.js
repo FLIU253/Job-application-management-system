@@ -14,7 +14,7 @@ export const getToApply = () => async dispatch => {
     }catch(err){
         dispatch({
             type: TO_APPLY_ERROR,
-            payload: {msg: err.response.statusText, status: err.response.status}
+            payload: {msg: err.response, status: err.response.status}
         })
     }
 }

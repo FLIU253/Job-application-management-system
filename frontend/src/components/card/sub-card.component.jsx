@@ -15,16 +15,14 @@ const CardText = styled.p`
     font-weight: 500;
 `;
 const SubCard = ({data}) => {
-    console.log(data);
 
     return(
         <Card>
             <CardText> <b>Company: </b>{data.companyName}</CardText>
             <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
             {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
-            {data.deadlineDate ? (
-                <CardText><b>Date: </b>{data.deadlineDate.substring(0,10)}</CardText>
-            ): null}
+            {data.deadlineDate ? (<CardText><b>Deadline Date: </b>{data.deadlineDate.substring(0,10)}</CardText> ): null}
+            {data.appliedDate ? (<CardText><b>Applied Date: </b>{data.appliedDate.substring(0,10)}</CardText>) : null}
             {data.applicationUrl ? (<CardText><b>Application URL: </b>{data.applicationUrl}</CardText>) : null}
         </Card>
     );

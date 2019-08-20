@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getToApply} from '../../redux/actions/user';
+import {getToApply} from '../../redux/actions/toApply';
 import SubCard from './sub-card.component';
 
 const Card = styled.div`
@@ -66,8 +66,7 @@ class ToApply extends Component{
 
     render(){
 
-        const {title, user:{loading, toApplyList: {toApply}}} = this.props;
-
+        const {title, toApply:{loading, toApplyList: {toApply}}} = this.props;
         return(
             <Card>
            <h3>{title}</h3>
@@ -98,11 +97,11 @@ class ToApply extends Component{
 
 ToApply.propTypes = {
     getToApply: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    toApply: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    user: state.user
+    toApply: state.toApply
 })
 
 export default connect(mapStateToProps, {getToApply})(ToApply);
