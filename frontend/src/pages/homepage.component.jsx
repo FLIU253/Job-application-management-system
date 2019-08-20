@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import ToApply from '../components/to-apply.component';
-import AppliedTo from '../components/applied-to.component';
-import Interview from '../components/interview.component';
-import Offered from '../components/offered.component';
-import Rejected from '../components/rejected.component';
+import ToApply from '../components/card/to-apply.component';
+import AppliedTo from '../components/card/applied-to.component';
+import Interview from '../components/card/interview.component';
+import Offered from '../components/card/offered.component';
+import Rejected from '../components/card/rejected.component';
 import styled from 'styled-components';
 import Header from '../components/header.component';
 

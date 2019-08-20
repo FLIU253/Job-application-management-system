@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getToApply} from '../../redux/actions/user';
+import SubCard from './sub-card.component';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -37,15 +41,19 @@ const AddCard = styled.div`
 const Cancel = styled.span`
     cursor: pointer;
 `;
+
 class ToApply extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             addNewCard: false
         }
     }
 
+    componentDidMount(){
+        this.props.getToApply();
+    }
     onAddNewCardClick =(e) => {
         e.preventDefault();
         this.setState({addNewCard: true});
@@ -58,11 +66,20 @@ class ToApply extends Component{
 
     render(){
 
-        const {title} = this.props;
+        const {title, user:{loading, toApplyList: {toApply}}} = this.props;
 
         return(
             <Card>
            <h3>{title}</h3>
+            {loading ? <h1>LOADING</h1> : 
+                <div>
+                {toApply.length > 0 ? (
+                    toApply.map(item => 
+                    <SubCard key = {item._id} data = {item}/>
+                    )
+                ) : null}
+                </div>
+            }
             {this.state.addNewCard ? (
                 <CardWrapper>
                 Company Name: <input type="text" required/>
@@ -79,4 +96,13 @@ class ToApply extends Component{
     }
 }
 
-export default ToApply;
+ToApply.propTypes = {
+    getToApply: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps, {getToApply})(ToApply);
