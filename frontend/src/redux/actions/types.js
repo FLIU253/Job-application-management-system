@@ -17,3 +17,12 @@ export const TO_APPLY_ERROR = 'TO_APPLY_ERROR';
 
 export const GET_APPLIED_TO = 'GET_APPLIED_TO';
 export const APPLIED_ERROR = 'APPLIED_ERROR';
+
+export const GET_INTERVIEW = 'GET_INTERVIEW';
+export const INTERVIEW_ERROR = 'INTERVIEW_ERROR';
+
+export const GET_REJECTED = 'GET_REJECTED';
+export const REJECTED_ERROR = 'REJECTED_ERROR';
+
+export const GET_OFFERED = 'GET_OFFERED';
+export const OFFERED_ERROR = 'OFFERED_ERROR';

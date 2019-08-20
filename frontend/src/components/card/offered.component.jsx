@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getOffered} from '../../redux/actions/offered';
+import SubCard from './sub-card.component';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -34,13 +38,22 @@ const AddCard = styled.div`
     }
 `;
 
+const Cancel = styled.span`
+    cursor: pointer;
+`;
+
+
 class Offered extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             addNewCard: false
         }
+    }
+    
+    componentDidMount(){
+        this.props.getOffered();
     }
 
     onAddNewCardClick =(e) => {
@@ -48,14 +61,27 @@ class Offered extends Component{
         this.setState({addNewCard: true});
     }
 
+    onCancelClick = (e) => {
+        e.preventDefault();
+        this.setState({addNewCard: false});
+    }
     render(){
 
-        const {title} = this.props;
+        const {title, offered: {loading, offeredList: {offered}}} = this.props;
 
         return(
             <Card>
            <h3>{title}</h3>
-            {this.state.addNewCard ? (
+           {loading ? <h1>LOADING</h1> : 
+                <div>
+                {offered.length > 0 ? (
+                    offered.map(item => 
+                    <SubCard key = {item._id} data = {item}/>
+                    )
+                ) : null}
+                </div>
+            }
+           {this.state.addNewCard ? (
                 <CardWrapper>
                 Company Name: <input type="text" required/>
                 Position Name: <input type="text" required/>
@@ -63,13 +89,21 @@ class Offered extends Component{
                 <TextArea type = "text" required rows="5"></TextArea>
                 <button>Add</button>
                 <span> or </span>
-                <span> Cancel </span>
+                <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
             </CardWrapper>
-            ) : null}
-            <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>
+            ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
         );
     }
 }
 
-export default Offered;
+Offered.propTypes = {
+    getOffered: PropTypes.func.isRequired,
+    offered: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    offered: state.offered
+});
+
+export default connect(mapStateToProps, {getOffered})(Offered);

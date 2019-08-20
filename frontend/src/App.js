@@ -9,6 +9,8 @@ import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
 import {Route, Switch} from 'react-router-dom';
 import PrivateRoute from './utils/privateRoute';
+
+
 if(localStorage.token){
   setAuthToken(localStorage.token);
 }

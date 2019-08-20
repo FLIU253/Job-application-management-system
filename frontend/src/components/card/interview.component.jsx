@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getInterview} from '../../redux/actions/interview';
+import SubCard from './sub-card.component';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -33,14 +37,21 @@ const AddCard = styled.div`
         color: black;
     }
 `;
+const Cancel = styled.span`
+    cursor: pointer;
+`;
 
 class Interview extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             addNewCard: false
         }
+    }
+    
+    componentDidMount(){
+        this.props.getInterview();
     }
 
     onAddNewCardClick =(e) => {
@@ -48,14 +59,27 @@ class Interview extends Component{
         this.setState({addNewCard: true});
     }
 
+    onCancelClick = (e) => {
+        e.preventDefault();
+        this.setState({addNewCard: false});
+    }
     render(){
 
-        const {title} = this.props;
+        const {title, interview: {loading, interviewList: {interview}}} = this.props;
 
         return(
             <Card>
            <h3>{title}</h3>
-            {this.state.addNewCard ? (
+           {loading ? <h1>LOADING</h1> : 
+                <div>
+                {interview.length > 0 ? (
+                    interview.map(item => 
+                    <SubCard key = {item._id} data = {item}/>
+                    )
+                ) : null}
+                </div>
+            }
+           {this.state.addNewCard ? (
                 <CardWrapper>
                 Company Name: <input type="text" required/>
                 Position Name: <input type="text" required/>
@@ -63,13 +87,21 @@ class Interview extends Component{
                 <TextArea type = "text" required rows="5"></TextArea>
                 <button>Add</button>
                 <span> or </span>
-                <span> Cancel </span>
+                <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
             </CardWrapper>
-            ) : null}
-            <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>
+            ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
         );
     }
 }
 
-export default Interview;
+Interview.propTypes = {
+    getInterview: PropTypes.func.isRequired,
+    interview: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    interview: state.interview
+});
+
+export default connect(mapStateToProps, {getInterview})(Interview);

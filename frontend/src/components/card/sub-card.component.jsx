@@ -23,7 +23,10 @@ const SubCard = ({data}) => {
             {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
             {data.deadlineDate ? (<CardText><b>Deadline Date: </b>{data.deadlineDate.substring(0,10)}</CardText> ): null}
             {data.appliedDate ? (<CardText><b>Applied Date: </b>{data.appliedDate.substring(0,10)}</CardText>) : null}
+            {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
+            {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
             {data.applicationUrl ? (<CardText><b>Application URL: </b>{data.applicationUrl}</CardText>) : null}
+            
         </Card>
     );
 }
