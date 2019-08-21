@@ -8,8 +8,11 @@ import styled from 'styled-components';
 import Header from '../components/header.component';
 
 const CardSection = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr) );
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-width: 400px;
+  align-items: flex-start;
 `;
 
 class HomePage extends Component{

@@ -21,7 +21,7 @@ export default function(state=initialState, action){
             return {
                 ...state,
                 errors: payload,
-                loading: false
+                loading: true
             }
         default:
             return state;

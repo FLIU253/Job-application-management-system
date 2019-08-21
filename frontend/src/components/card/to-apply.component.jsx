@@ -12,6 +12,7 @@ const Card = styled.div`
     margin: 1em 1em;
     color:#4C4E50;
     display: block;
+    width: 300px;
 `;
 
 const CardWrapper = styled.div`
