@@ -28,3 +28,12 @@ export const GET_OFFERED = 'GET_OFFERED';
 export const OFFERED_ERROR = 'OFFERED_ERROR';
 
 export const ADD_TO_APPLY = 'ADD_TO_APPLY';
+
+export const ADD_APPLIED_TO = 'ADD_APPLIED_TO';
+
+export const ADD_INTERVIEW = 'ADD_INTERVIEW';
+
+export const ADD_REJECTED = 'ADD_REJECTED';
+
+export const ADD_OFFERED = 'ADD_OFFERED';
+

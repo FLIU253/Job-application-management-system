@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getOffered} from '../../redux/actions/offered';
+import {getOffered, addOffered} from '../../redux/actions/offered';
 import SubCard from './sub-card.component';
 
 const Card = styled.div`
@@ -42,7 +42,12 @@ class Offered extends Component{
     constructor(props){
         super(props);
         this.state = {
-            addNewCard: false
+            addNewCard: false,
+            companyName: '',
+            jobTitle: '',
+            applicationUrl: '',
+            location: '',
+            offerDeadlineDate: ''
         }
     }
     
@@ -58,6 +63,15 @@ class Offered extends Component{
     onCancelClick = (e) => {
         e.preventDefault();
         this.setState({addNewCard: false});
+    }
+    onChange = e => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+    onSubmit = e => {
+        const {companyName, jobTitle, applicationUrl, location, offerDeadlineDate} = this.state;
+        e.preventDefault();
+        this.setState({addNewCard: false});
+        this.props.addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
     }
     render(){
 
@@ -77,15 +91,17 @@ class Offered extends Component{
             }
            {this.state.addNewCard ? (
                 <CardWrapper>
-                <p>Company Name:</p> <input type="text" required/>
-                <p>Position Name:</p> <input type="text" required/>
-                <p>Application Link:</p> <input type="text" />
-                <p>Location:</p> <input type="text" />
-                <p>Offer Deadline Date:</p> <input type="date" />
+                 <form onSubmit = {this.onSubmit}>
+                <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {this.state.companyName} onChange = {this.onChange} required/>
+                <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {this.state.jobTitle} onChange = {this.onChange} required/>
+                <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {this.state.applicationUrl} onChange = {this.onChange} />
+                <p>Location:</p> <input type="text"  name =  "location" value = {this.state.location} onChange = {this.onChange}/>
+                <p>Deadline Date:</p> <input type="date" name =  "offerDeadlineDate" value = {this.state.offerDeadlineDate} onChange = {this.onChange} />
                 <br/>
                 <button>Add</button>
                 <span> or </span>
                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
+               </form>
             </CardWrapper>
             ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
@@ -95,11 +111,12 @@ class Offered extends Component{
 
 Offered.propTypes = {
     getOffered: PropTypes.func.isRequired,
-    offered: PropTypes.object.isRequired
+    offered: PropTypes.object.isRequired,
+    addOffered: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     offered: state.offered
 });
 
-export default connect(mapStateToProps, {getOffered})(Offered);
+export default connect(mapStateToProps, {getOffered, addOffered})(Offered);

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {GET_APPLIED_TO, APPLIED_ERROR} from './types';
-
+import {GET_APPLIED_TO, APPLIED_ERROR, ADD_APPLIED_TO} from './types';
+import {setAlert} from './alert';
 
 //get all 'to apply'
 export const getAppliedTo = () => async dispatch => {
@@ -17,5 +17,32 @@ export const getAppliedTo = () => async dispatch => {
             type: APPLIED_ERROR,
             payload: {msg: err.response, status: err.response.status}
         })
+    }
+}
+
+//add a post
+export const addAppliedTo = ({companyName, jobTitle, applicationUrl, location, appliedDate}) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body= JSON.stringify({companyName, jobTitle, applicationUrl, location, appliedDate});
+
+    try{
+        const res = await axios.put('/api/users/appliedTo', body, config);
+
+        dispatch({
+            type: ADD_APPLIED_TO,
+            payload: res.data
+        });
+
+        dispatch(setAlert('applied to Added', 'success'));
+
+    }catch(err){
+        dispatch({
+            type: APPLIED_ERROR,
+            payload: {msg: err.response, status: err.response}
+        });
     }
 }

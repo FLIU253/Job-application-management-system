@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getInterview} from '../../redux/actions/interview';
+import {getInterview, addInterview} from '../../redux/actions/interview';
 import SubCard from './sub-card.component';
 
 const Card = styled.div`
@@ -39,7 +39,12 @@ class Interview extends Component{
     constructor(props){
         super(props);
         this.state = {
-            addNewCard: false
+            addNewCard: false,
+            companyName: '',
+            jobTitle: '',
+            applicationUrl: '',
+            location: '',
+            interviewDate: ''
         }
     }
     
@@ -56,6 +61,16 @@ class Interview extends Component{
         e.preventDefault();
         this.setState({addNewCard: false});
     }
+    onChange = e => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+    onSubmit = e => {
+        const {companyName, jobTitle, applicationUrl, location, interviewDate} = this.state;
+        e.preventDefault();
+        this.setState({addNewCard: false});
+        this.props.addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
+    }
+
     render(){
 
         const {title, interview: {loading, interviewList: {interview}}} = this.props;
@@ -74,15 +89,17 @@ class Interview extends Component{
             }
            {this.state.addNewCard ? (
                 <CardWrapper>
-                <p>Company Name:</p> <input type="text" required/>
-                <p>Position Name:</p> <input type="text" required/>
-                <p>Application Link:</p> <input type="text" />
-                <p>Location:</p> <input type="text" />
-                <p>Interview Date:</p> <input type="date" />
+               <form onSubmit = {this.onSubmit}>
+               <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {this.state.companyName} onChange = {this.onChange} required/>
+                <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {this.state.jobTitle} onChange = {this.onChange} required/>
+                <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {this.state.applicationUrl} onChange = {this.onChange} />
+                <p>Location:</p> <input type="text"  name =  "location" value = {this.state.location} onChange = {this.onChange}/>
+                <p>Deadline Date:</p> <input type="date" name =  "interviewDate" value = {this.state.interviewDate} onChange = {this.onChange} />
                 <br/>
                 <button>Add</button>
                 <span> or </span>
                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
+               </form>
             </CardWrapper>
             ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
@@ -92,11 +109,12 @@ class Interview extends Component{
 
 Interview.propTypes = {
     getInterview: PropTypes.func.isRequired,
-    interview: PropTypes.object.isRequired
+    interview: PropTypes.object.isRequired,
+    addInterview: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     interview: state.interview
 });
 
-export default connect(mapStateToProps, {getInterview})(Interview);
+export default connect(mapStateToProps, {getInterview, addInterview})(Interview);

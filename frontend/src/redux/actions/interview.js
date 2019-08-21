@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {GET_INTERVIEW, INTERVIEW_ERROR} from './types';
-
+import {GET_INTERVIEW, INTERVIEW_ERROR, ADD_INTERVIEW} from './types';
+import {setAlert} from './alert';
 
 //get all 'interview'
 export const getInterview = () => async dispatch => {
@@ -16,5 +16,32 @@ export const getInterview = () => async dispatch => {
             type: INTERVIEW_ERROR,
             payload: {msg: err.response, status: err.response.status}
         })
+    }
+}
+
+//add a post
+export const addInterview = ({companyName, jobTitle, applicationUrl, location, interviewDate}) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body= JSON.stringify({companyName, jobTitle, applicationUrl, location, interviewDate});
+
+    try{
+        const res = await axios.put('/api/users/interview', body, config);
+
+        dispatch({
+            type: ADD_INTERVIEW,
+            payload: res.data
+        });
+
+        dispatch(setAlert('interview Added', 'success'));
+
+    }catch(err){
+        dispatch({
+            type: INTERVIEW_ERROR,
+            payload: {msg: err.response, status: err.response}
+        });
     }
 }

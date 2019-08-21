@@ -1,4 +1,4 @@
-import {GET_INTERVIEW, INTERVIEW_ERROR} from '../actions/types';
+import {GET_INTERVIEW, INTERVIEW_ERROR, ADD_INTERVIEW} from '../actions/types';
 
 
 const initialState = {
@@ -17,6 +17,12 @@ export default function(state=initialState, action){
                 interviewList: payload,
                 loading: false
             }
+        case ADD_INTERVIEW:
+                return{
+                    ...state,
+                    interviewList: [payload, ...state.interviewList],
+                    loading: false
+                }
         case INTERVIEW_ERROR:
             return {
                 ...state,

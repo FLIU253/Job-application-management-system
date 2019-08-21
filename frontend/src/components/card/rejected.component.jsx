@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getRejected} from '../../redux/actions/rejected';
+import {getRejected, addRejected} from '../../redux/actions/rejected';
 import SubCard from './sub-card.component';
 
 const Card = styled.div`
@@ -41,7 +41,11 @@ class Rejected extends Component{
     constructor(props){
         super(props);
         this.state = {
-            addNewCard: false
+            addNewCard: false,
+            companyName: '',
+            jobTitle: '',
+            applicationUrl: '',
+            location: ''
         }
     }
     
@@ -57,6 +61,15 @@ class Rejected extends Component{
     onCancelClick = (e) => {
         e.preventDefault();
         this.setState({addNewCard: false});
+    }
+    onChange = e => {
+        this.setState({[e.target.name]: e.target.value});
+    }
+    onSubmit = e => {
+        const {companyName, jobTitle, applicationUrl, location} = this.state;
+        e.preventDefault();
+        this.setState({addNewCard: false});
+        this.props.addRejected({companyName, jobTitle, applicationUrl, location});
     }
     render(){
         const {title, rejected: {loading, rejectedList: {rejected}}} = this.props;
@@ -75,14 +88,16 @@ class Rejected extends Component{
         }
            {this.state.addNewCard ? (
                 <CardWrapper>
-                <p>Company Name:</p> <input type="text" required/>
-                <p>Position Name:</p> <input type="text" required/>
-                <p>Application Link:</p> <input type="text" />
-                <p>Location:</p> <input type="text" />
+                  <form onSubmit = {this.onSubmit}>
+                <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {this.state.companyName} onChange = {this.onChange} required/>
+                <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {this.state.jobTitle} onChange = {this.onChange} required/>
+                <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {this.state.applicationUrl} onChange = {this.onChange} />
+                <p>Location:</p> <input type="text"  name =  "location" value = {this.state.location} onChange = {this.onChange}/>
                 <br/>
                 <button>Add</button>
                 <span> or </span>
                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
+               </form>
             </CardWrapper>
             ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
           </Card>
@@ -92,7 +107,8 @@ class Rejected extends Component{
 
 Rejected.propTypes = {
     getRejected: PropTypes.func.isRequired,
-    rejected: PropTypes.object.isRequired
+    rejected: PropTypes.object.isRequired,
+    addRejected: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -100,4 +116,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, {getRejected})(Rejected);
+export default connect(mapStateToProps, {getRejected, addRejected})(Rejected);

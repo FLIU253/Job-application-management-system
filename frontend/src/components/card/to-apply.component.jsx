@@ -70,6 +70,7 @@ class ToApply extends Component{
     onSubmit = e => {
         const {companyName, jobTitle, applicationUrl, location, deadlineDate} = this.state;
         e.preventDefault();
+        this.setState({addNewCard: false});
         this.props.addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
     }
     render(){

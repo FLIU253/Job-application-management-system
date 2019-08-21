@@ -1,4 +1,4 @@
-import {GET_OFFERED, OFFERED_ERROR} from '../actions/types';
+import {GET_OFFERED, OFFERED_ERROR, ADD_OFFERED} from '../actions/types';
 
 
 const initialState = {
@@ -15,6 +15,12 @@ export default function(state=initialState, action){
             return {
                 ...state,
                 offeredList: payload,
+                loading: false
+            }
+        case ADD_OFFERED:
+            return{
+                ...state,
+                offeredList: [payload, ...state.offeredList],
                 loading: false
             }
         case OFFERED_ERROR:
