@@ -1,11 +1,15 @@
 import axios from 'axios';
-import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY} from './types';
+import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY, DELETE_TO_APPLY} from './types';
 import {setAlert} from './alert';
+import {loadUser} from './auth';
 
 //get all 'to apply'
 export const getToApply = () => async dispatch => {
     try{
+        dispatch(loadUser());
+        
         const res = await axios.get('/api/users/toApply');
+        console.log(res.data);
 
         dispatch({
             type: GET_TO_APPLY,
@@ -37,6 +41,24 @@ export const addToApply = ({companyName, jobTitle, applicationUrl, location, dea
         });
 
         dispatch(setAlert('To Apply Added', 'success'));
+
+    }catch(err){
+        dispatch({
+            type: TO_APPLY_ERROR,
+            payload: {msg: err.response, status: err.response}
+        });
+    }
+}
+
+//Delete a 'To apply'
+export const deleteToApply = (id, uri) => async dispatch => {
+    try{
+       await axios.delete(`/api/users/${uri}/${id}`)
+
+        dispatch({
+            type: DELETE_TO_APPLY,
+            payload: id,
+        })
 
     }catch(err){
         dispatch({

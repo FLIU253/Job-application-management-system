@@ -37,3 +37,4 @@ export const ADD_REJECTED = 'ADD_REJECTED';
 
 export const ADD_OFFERED = 'ADD_OFFERED';
 
+export const DELETE_TO_APPLY = 'DELETE_TO_APPLY';

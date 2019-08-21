@@ -1,4 +1,4 @@
-import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY} from '../actions/types';
+import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY, DELETE_TO_APPLY} from '../actions/types';
 
 
 const initialState = {
@@ -23,11 +23,17 @@ export default function(state=initialState, action){
                 toApplyList: [payload, ...state.toApplyList],
                 loading: false
             }
+        case DELETE_TO_APPLY:
+            return{
+                ...state,
+                toApplyList: state.toApplyList.filter(item => item._id !== payload),
+                loading: false
+            }
         case TO_APPLY_ERROR:
             return {
                 ...state,
                 errors: payload,
-                loading: true
+                loading: false
             }
         default:
             return state;

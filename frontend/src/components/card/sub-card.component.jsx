@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
+import {deleteToApply} from '../../redux/actions/toApply';
 
 const Card = styled.div`
     background: #fff;
@@ -14,7 +16,8 @@ const CardText = styled.p`
     margin: 0;
     font-weight: 500;
 `;
-const SubCard = ({data}) => {
+
+const SubCard = ({data, uri, deleteToApply}) => {
 
     return(
         <Card>
@@ -26,13 +29,15 @@ const SubCard = ({data}) => {
             {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
             {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
             {data.applicationUrl ? (<CardText><b>Application URL: </b>{data.applicationUrl}</CardText>) : null}
-            
+            <i className ="fas fa-trash-alt" onClick ={e => deleteToApply(data._id, uri)} ></i>
         </Card>
     );
 }
 
 SubCard.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    uri: PropTypes.string,
+    deleteToApply: PropTypes.func.isRequired
 }
 
-export default SubCard;
+export default connect(null, {deleteToApply})(SubCard);

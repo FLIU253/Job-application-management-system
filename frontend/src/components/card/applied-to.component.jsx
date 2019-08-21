@@ -78,7 +78,7 @@ class AppliedTo extends Component{
                 <div>
                 {appliedTo.length > 0 ? (
                     appliedTo.map(item => 
-                    <SubCard key = {item._id} data = {item}/>
+                    <SubCard key = {item._id} data = {item} uri = 'appliedTo'/>
                     )
                 ) : null}
                 </div>

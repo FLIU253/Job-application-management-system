@@ -6,6 +6,8 @@ import Offered from '../components/card/offered.component';
 import Rejected from '../components/card/rejected.component';
 import styled from 'styled-components';
 import Header from '../components/header.component';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const CardSection = styled.div`
   display: flex;
@@ -18,19 +20,30 @@ const CardSection = styled.div`
 class HomePage extends Component{
 
   render(){
+    const {isAuthenticated} = this.props;
     return (
       <div>
       <Header/>
+    {isAuthenticated  ? (
       <CardSection>
-      <ToApply title = "To apply" />
-      <AppliedTo title = "Applied To"/>
-      <Interview title = "Interview"/>
-      <Rejected title = "Rejected"/>
-      <Offered title = "Offered"/>
-      </CardSection>
+        <ToApply title = "To apply" />
+        <AppliedTo title = "Applied To"/>
+        <Interview title = "Interview"/>
+        <Rejected title = "Rejected"/>
+        <Offered title = "Offered"/>
+        </CardSection>
+    ) : (<h1>Loading</h1>)}
       </div>
     );
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  isAuthenticated: PropTypes.bool
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(HomePage);

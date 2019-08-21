@@ -82,7 +82,7 @@ class Interview extends Component{
                 <div>
                 {interview.length > 0 ? (
                     interview.map(item => 
-                    <SubCard key = {item._id} data = {item}/>
+                    <SubCard key = {item._id} data = {item} uri = 'interview'/>
                     )
                 ) : null}
                 </div>

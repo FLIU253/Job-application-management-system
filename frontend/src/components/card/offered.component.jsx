@@ -84,7 +84,7 @@ class Offered extends Component{
                 <div>
                 {offered.length > 0 ? (
                     offered.map(item => 
-                    <SubCard key = {item._id} data = {item}/>
+                    <SubCard key = {item._id} data = {item} uri = 'offered'/>
                     )
                 ) : null}
                 </div>

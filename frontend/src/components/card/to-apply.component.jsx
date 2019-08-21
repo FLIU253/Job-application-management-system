@@ -70,8 +70,8 @@ class ToApply extends Component{
     onSubmit = e => {
         const {companyName, jobTitle, applicationUrl, location, deadlineDate} = this.state;
         e.preventDefault();
-        this.setState({addNewCard: false});
         this.props.addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
+        this.setState({addNewCard: false});
     }
     render(){
 
@@ -83,7 +83,7 @@ class ToApply extends Component{
                 <div>
                 {toApply.length > 0 ? (
                     toApply.map(item => 
-                    <SubCard key = {item._id} data = {item}/>
+                    <SubCard key = {item._id} data = {item} uri = 'toApply'/>
                     )
                 ) : null}
                 </div>

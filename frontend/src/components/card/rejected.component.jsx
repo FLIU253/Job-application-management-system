@@ -81,7 +81,7 @@ class Rejected extends Component{
             <div>
             {rejected.length > 0 ? (
                 rejected.map(item => 
-                <SubCard key = {item._id} data = {item}/>
+                <SubCard key = {item._id} data = {item} uri = 'rejected'/>
                 )
             ) : null}
             </div>
