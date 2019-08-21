@@ -70,6 +70,7 @@ class Rejected extends Component{
         e.preventDefault();
         this.setState({addNewCard: false});
         this.props.addRejected({companyName, jobTitle, applicationUrl, location});
+        this.props.getRejected();
     }
     render(){
         const {title, rejected: {loading, rejectedList: {rejected}}} = this.props;

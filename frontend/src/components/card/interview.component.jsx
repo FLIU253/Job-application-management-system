@@ -69,6 +69,7 @@ class Interview extends Component{
         e.preventDefault();
         this.setState({addNewCard: false});
         this.props.addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
+        this.props.getInterview();
     }
 
     render(){

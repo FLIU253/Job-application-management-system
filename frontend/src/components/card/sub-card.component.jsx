@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
@@ -19,8 +19,17 @@ const CardText = styled.p`
 
 const SubCard = ({data, uri, deleteToApply}) => {
 
+    const [refresh, setRefresh] = useState(false);
+
+    const deleteItem = e => {
+        e.preventDefault();
+        deleteToApply(data._id, uri);
+        setRefresh(!refresh);
+        
+    }
     return(
-        <Card>
+        !refresh ? (
+            <Card>
             <CardText> <b>Company: </b>{data.companyName}</CardText>
             <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
             {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
@@ -29,8 +38,9 @@ const SubCard = ({data, uri, deleteToApply}) => {
             {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
             {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
             {data.applicationUrl ? (<CardText><b>Application URL: </b>{data.applicationUrl}</CardText>) : null}
-            <i className ="fas fa-trash-alt" onClick ={e => deleteToApply(data._id, uri)} ></i>
+            <i className ="fas fa-trash-alt" onClick ={e => deleteItem(e)} ></i>
         </Card>
+        ) : null
     );
 }
 

@@ -72,6 +72,7 @@ class ToApply extends Component{
         e.preventDefault();
         this.props.addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
         this.setState({addNewCard: false});
+        this.props.getToApply();
     }
     render(){
 

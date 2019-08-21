@@ -72,6 +72,7 @@ class Offered extends Component{
         e.preventDefault();
         this.setState({addNewCard: false});
         this.props.addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
+        this.props.getOffered();
     }
     render(){
 

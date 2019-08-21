@@ -68,6 +68,7 @@ class AppliedTo extends Component{
         e.preventDefault();
         this.setState({addNewCard: false});
         this.props.addAppliedTo({companyName, jobTitle, applicationUrl, location, appliedDate});
+        this.props.getAppliedTo();
     }
     render(){
         const {title, appliedTo:{loading, appliedToList: {appliedTo}}} = this.props;

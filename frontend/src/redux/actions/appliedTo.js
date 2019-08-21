@@ -31,7 +31,7 @@ export const addAppliedTo = ({companyName, jobTitle, applicationUrl, location, a
 
     try{
         const res = await axios.put('/api/users/appliedTo', body, config);
-
+        console.log(res.data);
         dispatch({
             type: ADD_APPLIED_TO,
             payload: res.data
