@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {deleteToApply} from '../../redux/actions/toApply';
+import {useDrag} from 'react-dnd';
+import ItemTypes from '../../utils/ItemTypes';
 
 const Card = styled.div`
     background: #fff;
@@ -19,6 +21,19 @@ const CardText = styled.p`
 
 const SubCard = ({data, uri, deleteToApply}) => {
 
+    const [{isDragging}, drag] = useDrag({
+        item: {data, type: ItemTypes.SubCard},
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult()
+            if(item && dropResult){
+                alert(`You dropped it`)
+            }
+        },
+        collect: monitor => ({
+            isDragging: monitor.isDragging(),
+        }),
+    })
+
     const [refresh, setRefresh] = useState(false);
 
     const deleteItem = e => {
@@ -29,7 +44,7 @@ const SubCard = ({data, uri, deleteToApply}) => {
     }
     return(
         !refresh ? (
-            <Card>
+            <Card ref = {drag}>
             <CardText> <b>Company: </b>{data.companyName}</CardText>
             <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
             {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
