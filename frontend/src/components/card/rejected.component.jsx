@@ -40,7 +40,7 @@ const Cancel = styled.span`
 const Rejected = ({title, getRejected, addRejected,rejected: {loading, rejectedList: {rejected}} }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.SubCard,
-        drop: () => ({ name: 'ToApply' }),
+        drop: () => ({ name: 'Rejected' }),
         collect: monitor => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
@@ -78,8 +78,14 @@ const Rejected = ({title, getRejected, addRejected,rejected: {loading, rejectedL
         getRejected();
     }
 
+    const isActive = canDrop && isOver
+    let backgroundColor = '#DEE1E3';
+    if(isActive){
+        backgroundColor = '#d1a8a5';
+    }
+
     return(
-        <Card ref = {drop}>
+        <Card ref = {drop} style = {{backgroundColor}}>
        <h3>{title}</h3>
     {loading ? <h1>LOADING</h1> : 
         <div>

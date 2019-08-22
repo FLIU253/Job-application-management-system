@@ -26,7 +26,8 @@ const SubCard = ({data, uri, deleteToApply}) => {
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if(item && dropResult){
-                alert(`You dropped it`)
+                console.log(dropResult);
+                console.log(item);
             }
         },
         collect: monitor => ({
@@ -42,9 +43,12 @@ const SubCard = ({data, uri, deleteToApply}) => {
         setRefresh(!refresh);
         
     }
+
+    const opacity = isDragging ? 0.1 : 1
+
     return(
         !refresh ? (
-            <Card ref = {drag}>
+            <Card ref = {drag} style = {{opacity}}>
             <CardText> <b>Company: </b>{data.companyName}</CardText>
             <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
             {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}

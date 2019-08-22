@@ -39,7 +39,7 @@ const Cancel = styled.span`
 const Interview = ({getInterview, title, addInterview, interview: {loading, interviewList: {interview}}}) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.SubCard,
-        drop: () => ({ name: 'ToApply' }),
+        drop: () => ({ name: 'Interview' }),
         collect: monitor => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
@@ -79,8 +79,14 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
         getInterview();
     }
 
+    const isActive = canDrop && isOver
+    let backgroundColor = '#DEE1E3';
+    if(isActive){
+        backgroundColor = '#d1a8a5';
+    }
+
     return(
-        <Card ref = {drop}>
+        <Card ref = {drop} style = {{backgroundColor}}>
         <h3>{title}</h3>
         {loading ? <h1>LOADING</h1> : 
              <div>

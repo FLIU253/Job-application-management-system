@@ -41,7 +41,7 @@ const Cancel = styled.span`
 const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: {offered}} }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.SubCard,
-        drop: () => ({ name: 'ToApply' }),
+        drop: () => ({ name: 'Offered' }),
         collect: monitor => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
@@ -81,8 +81,14 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
         getOffered();
     }
 
+    const isActive = canDrop && isOver
+    let backgroundColor = '#DEE1E3';
+    if(isActive){
+        backgroundColor = '#d1a8a5';
+    }
+
     return(
-        <Card ref= {drop}>
+        <Card ref= {drop} style = {{backgroundColor}}> 
        <h3>{title}</h3>
        {loading ? <h1>LOADING</h1> : 
             <div>

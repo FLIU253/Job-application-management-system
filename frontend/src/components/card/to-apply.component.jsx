@@ -81,8 +81,13 @@ const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {
         getToApply();
     }
 
+    const isActive = canDrop && isOver
+    let backgroundColor = '#DEE1E3';
+    if(isActive){
+        backgroundColor = '#d1a8a5';
+    }
     return(
-        <Card ref = {drop}>
+        <Card ref = {drop} style = {{backgroundColor}}>
        <h3>{title}</h3>
         {loading ? <h1>LOADING</h1> : 
             <div>
