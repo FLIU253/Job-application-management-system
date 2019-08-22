@@ -9,7 +9,6 @@ export const getToApply = () => async dispatch => {
         dispatch(loadUser());
         
         const res = await axios.get('/api/users/toApply');
-        console.log(res.data);
 
         dispatch({
             type: GET_TO_APPLY,

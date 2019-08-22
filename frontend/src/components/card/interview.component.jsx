@@ -59,7 +59,7 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
 
     useEffect(() => {
         getInterview();
-    }, [])
+    }, [getInterview])
 
     const onAddNewCardClick = e => {
         setNewCard(true);

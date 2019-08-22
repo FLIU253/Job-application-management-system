@@ -2,9 +2,13 @@ import React , {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {deleteToApply} from '../../redux/actions/toApply';
+import {deleteToApply, addToApply, getToApply} from '../../redux/actions/toApply';
 import {useDrag} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import { addRejected, getRejected } from '../../redux/actions/rejected';
+import { addInterview, getInterview } from '../../redux/actions/interview';
+import { addOffered, getOffered } from '../../redux/actions/offered';
+import { addAppliedTo, getAppliedTo } from '../../redux/actions/appliedTo';
 
 const Card = styled.div`
     background: #fff;
@@ -19,15 +23,48 @@ const CardText = styled.p`
     font-weight: 500;
 `;
 
-const SubCard = ({data, uri, deleteToApply}) => {
+const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffered, addToApply, addAppliedTo,
+    getRejected, getAppliedTo, getInterview, getOffered, getToApply}) => {
 
     const [{isDragging}, drag] = useDrag({
         item: {data, type: ItemTypes.SubCard},
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if(item && dropResult){
-                console.log(dropResult);
-                console.log(item);
+                console.log(dropResult.name);
+                delete item.data['_id']
+                const {companyName, jobTitle, applicationUrl, location} = item.data;
+                
+               switch(dropResult.name){
+                   case 'Rejected':
+                       if(uri === dropResult.name.toLowerCase()) break;
+                        addRejected({companyName, jobTitle, applicationUrl, location});
+                        getRejected();
+                        break;
+                    case 'Interview':
+                        if(uri === dropResult.name.toLowerCase())break;
+                        addInterview({companyName, jobTitle, applicationUrl, location});
+                        getInterview();
+                        break;
+                    case 'Offered':
+                        if(uri === dropResult.name.toLowerCase()) break;
+                        addOffered({companyName, jobTitle, applicationUrl, location});
+                        getOffered();
+                        break;
+                    case 'AppliedTo':
+                    if(uri === dropResult.name.toLowerCase()) break;
+                        addAppliedTo({companyName, jobTitle, applicationUrl, location});
+                        getAppliedTo();
+                        break;
+                    case 'ToApply':
+                      if(uri === dropResult.name.toLowerCase()) break;
+                        addToApply({companyName, jobTitle, applicationUrl, location});
+                        getToApply();
+                        break;
+                    default:
+                        break;
+               }
+
             }
         },
         collect: monitor => ({
@@ -66,7 +103,19 @@ const SubCard = ({data, uri, deleteToApply}) => {
 SubCard.propTypes = {
     data: PropTypes.object.isRequired,
     uri: PropTypes.string,
-    deleteToApply: PropTypes.func.isRequired
+    deleteToApply: PropTypes.func.isRequired,
+    getRejected: PropTypes.func,
+    getAppliedTo: PropTypes.func,
+    getInterview: PropTypes.func,
+    getOffered: PropTypes.func,
+    getToApply: PropTypes.func,
+    addRejected: PropTypes.func,
+    addInterview: PropTypes.func,
+    addOffered: PropTypes.func,
+    addAppliedTo: PropTypes.func,
+    addToApply: PropTypes.func
+
 }
 
-export default connect(null, {deleteToApply})(SubCard);
+export default connect(null, {deleteToApply, addRejected, addInterview, addOffered, addToApply, addAppliedTo,
+     getRejected, getAppliedTo, getInterview, getOffered, getToApply})(SubCard);

@@ -58,7 +58,7 @@ const Rejected = ({title, getRejected, addRejected,rejected: {loading, rejectedL
 
     useEffect(() => {
         getRejected();
-    }, [])
+    }, [getRejected])
 
     const onAddNewCardClick = e => {
         setNewCard(true);

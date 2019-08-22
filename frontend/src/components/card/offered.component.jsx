@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -61,7 +61,7 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
 
     useEffect(() => {
         getOffered();
-    }, [])
+    }, [getOffered])
 
     const onAddNewCardClick = e => {
         setNewCard(true);

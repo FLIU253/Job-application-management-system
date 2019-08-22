@@ -6,7 +6,7 @@ import {setAlert} from './alert';
 export const getRejected = () => async dispatch => {
     try{
         const res = await axios.get('/api/users/rejected');
-
+        console.log(res.data);
         dispatch({
             type: GET_REJECTED,
             payload: res.data

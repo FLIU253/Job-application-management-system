@@ -60,7 +60,7 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
 
         useEffect(() => {
             getAppliedTo();
-        }, [])
+        }, [getAppliedTo])
 
         const onAddNewCardClick = e => {
             setNewCard(true);

@@ -61,7 +61,7 @@ const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {
 
     useEffect(() => {
         getToApply();
-    }, [])
+    }, [getToApply])
 
     const onAddNewCardClick = e => {
         setNewCard(true);
