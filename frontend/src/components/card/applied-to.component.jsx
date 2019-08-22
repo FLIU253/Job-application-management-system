@@ -5,6 +5,7 @@ import {getAppliedTo, addAppliedTo} from '../../redux/actions/appliedTo';
 import SubCard from './sub-card.component';
 import PropTypes from 'prop-types';
 import {useDrop} from 'react-dnd';
+import ItemTypes from '../../utils/ItemTypes';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -36,6 +37,16 @@ const Cancel = styled.span`
 `;
 
 const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {appliedTo}}, addAppliedTo}) => {
+
+        const [{ canDrop, isOver }, drop] = useDrop({
+            accept: ItemTypes.SubCard,
+            drop: () => ({ name: 'AppliedTo' }),
+            collect: monitor => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+            }),
+        })
+
         const [newCard, setNewCard] = useState(false);
         const [formData, setFormData] = useState({
             companyName: '',
@@ -68,7 +79,7 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
         }
 
         return(
-            <Card>
+            <Card  ref = {drop}>
             <h3>{title}</h3>
             {loading ? <h1>LOADING</h1> : 
                  <div>
