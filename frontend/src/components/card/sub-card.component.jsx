@@ -31,8 +31,8 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if(item && dropResult){
-                console.log(dropResult.name);
-                delete item.data['_id']
+                console.log(dropResult);
+                console.log(item);
                 const {companyName, jobTitle, applicationUrl, location} = item.data;
                 
                switch(dropResult.name){
@@ -40,26 +40,46 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
                        if(uri === dropResult.name.toLowerCase()) break;
                         addRejected({companyName, jobTitle, applicationUrl, location});
                         getRejected();
+                       setTimeout(() => {
+                        deleteToApply(data._id, uri);
+                        setRefresh(!refresh);
+                       }, 500)
                         break;
                     case 'Interview':
                         if(uri === dropResult.name.toLowerCase())break;
                         addInterview({companyName, jobTitle, applicationUrl, location});
                         getInterview();
+                        setTimeout(() => {
+                            deleteToApply(data._id, uri);
+                            setRefresh(!refresh);
+                           }, 500)
                         break;
                     case 'Offered':
                         if(uri === dropResult.name.toLowerCase()) break;
                         addOffered({companyName, jobTitle, applicationUrl, location});
                         getOffered();
+                        setTimeout(() => {
+                            deleteToApply(data._id, uri);
+                            setRefresh(!refresh);
+                           }, 500)
                         break;
                     case 'AppliedTo':
-                    if(uri === dropResult.name.toLowerCase()) break;
+                        if(uri.toLowerCase() === dropResult.name.toLowerCase()) break;
                         addAppliedTo({companyName, jobTitle, applicationUrl, location});
                         getAppliedTo();
+                        setTimeout(() => {
+                            deleteToApply(data._id, uri);
+                            setRefresh(!refresh);
+                           }, 500)
                         break;
                     case 'ToApply':
-                      if(uri === dropResult.name.toLowerCase()) break;
+                      if(uri.toLowerCase() === dropResult.name.toLowerCase()) break;
                         addToApply({companyName, jobTitle, applicationUrl, location});
                         getToApply();
+                        setTimeout(() => {
+                            deleteToApply(data._id, uri);
+                            setRefresh(!refresh);
+                           }, 500)
                         break;
                     default:
                         break;
