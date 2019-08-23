@@ -78,7 +78,8 @@ const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {
             alert("please enter a valid url");
         }else{
             setNewCard(false);
-            addToApply({companyName, jobTitle, applicationUrl, location, date});
+            const deadlineDate = date
+            addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
             getToApply();
         }
     }

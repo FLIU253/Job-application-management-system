@@ -75,7 +75,8 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
             {
                 alert("please enter a valid url")
             }else{
-                addAppliedTo({companyName, jobTitle, applicationUrl, location, date});
+                const appliedDate = date; 
+                addAppliedTo({companyName, jobTitle, applicationUrl, location, appliedDate});
                 getAppliedTo();
                 setNewCard(false);
             }

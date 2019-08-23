@@ -79,7 +79,8 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
             alert("please enter a valid url");
         }else{
             setNewCard(false);
-            addOffered({companyName, jobTitle, applicationUrl, location, date});
+            const offerDeadlineDate = date;
+            addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
             getOffered();
         }
     }

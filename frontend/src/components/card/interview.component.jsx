@@ -77,7 +77,8 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
             alert("please enter a valid url");
         }else{
             setNewCard(false);
-            addInterview({companyName, jobTitle, applicationUrl, location, date});
+            const interviewDate = date;
+            addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
             getInterview();
         }
     }
