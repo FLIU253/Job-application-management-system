@@ -66,3 +66,27 @@ export const deleteToApply = (id, uri) => async dispatch => {
         });
     }
 }
+
+
+//edit a post
+export const editItem = (id, uri, formData) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try{
+        const res = await axios.put(`/api/users/${uri}/${id}`, formData, config);
+
+        dispatch({
+            type: ADD_TO_APPLY,
+            payload: res.data
+        });
+
+    }catch(err){
+        dispatch({
+            type: TO_APPLY_ERROR,
+            payload: {msg: err.response, status: err.response}
+        });
+    }
+}

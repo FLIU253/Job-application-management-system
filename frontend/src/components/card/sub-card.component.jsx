@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {deleteToApply, addToApply, getToApply} from '../../redux/actions/toApply';
+import {deleteToApply, addToApply, getToApply, editItem} from '../../redux/actions/toApply';
 import {useDrag} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import { addRejected, getRejected } from '../../redux/actions/rejected';
@@ -10,6 +10,8 @@ import { addInterview, getInterview } from '../../redux/actions/interview';
 import { addOffered, getOffered } from '../../redux/actions/offered';
 import { addAppliedTo, getAppliedTo } from '../../redux/actions/appliedTo';
 import AddForm from '../add-form.component';
+import validator from 'validator';
+
 
 const Card = styled.div`
     background: #fff;
@@ -25,7 +27,7 @@ const CardText = styled.p`
 `;
 
 const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffered, addToApply, addAppliedTo,
-    getRejected, getAppliedTo, getInterview, getOffered, getToApply}) => {
+    getRejected, getAppliedTo, getInterview, getOffered, getToApply, editItem}) => {
 
     const [{isDragging}, drag] = useDrag({
         item: {data, type: ItemTypes.SubCard},
@@ -95,6 +97,14 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
 
     const [refresh, setRefresh] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [formData, setFormData] = useState({
+        companyName: '',
+        jobTitle: '',
+        applicationUrl: '',
+        location: '',
+        date: ''
+    });
+    const {companyName, jobTitle, applicationUrl, location, date} = formData;
 
     const deleteItem = e => {
         e.preventDefault();
@@ -103,11 +113,57 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
         
     }
 
-    const editItem = e => {
+    const onEditClicked = e => {
         e.preventDefault();
         setEdit(true);
     }
     
+    const onCancelClick = e=> {
+        setEdit(false);
+    }
+
+    const onChange = e => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
+
+    const onSubmit = async e => {
+        e.preventDefault();
+        if(((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl)) && applicationUrl !== '')
+        {
+            alert("please enter a valid url");
+        }else{
+            setEdit(false);
+            switch(uri){
+                case 'toApply':
+                    const deadlineDate = date;
+                    editItem(data._id, uri, JSON.stringify({companyName, jobTitle, applicationUrl, location, deadlineDate}));
+                    getToApply();
+                    break;
+                case 'appliedTo':
+                    const appliedDate = date;
+                    editItem(data._id, uri, JSON.stringify({companyName, jobTitle, applicationUrl, location, appliedDate}));
+                    getAppliedTo();
+                    break;
+                case 'interview':
+                    const interviewDate = date;
+                    editItem(data._id, uri, JSON.stringify({companyName, jobTitle, applicationUrl, location, interviewDate}));
+                    getInterview();
+                    break;
+                case 'offered':
+                    const offerDeadlineDate = date;
+                    editItem(data._id, uri, JSON.stringify({companyName, jobTitle, applicationUrl, location, offerDeadlineDate}));
+                    getOffered();
+                    break;
+                case 'rejected':
+                        editItem(data._id, uri, JSON.stringify({companyName, jobTitle, applicationUrl, location}));
+                        getRejected();
+                         break;
+                default:
+                    break;
+            }
+        }
+    }
+
     const opacity = isDragging ? 0.1 : 1
 
     return(
@@ -122,14 +178,19 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
                 {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
                 {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
                 {data.applicationUrl ? (<CardText><b>Application URL: </b><a href={data.applicationUrl} target="_blank" rel="noopener noreferrer">{data.applicationUrl} </a></CardText>) : null}
-                <i className ="fas fa-edit" onClick = {e => editItem(e)}></i>
+                <i className ="fas fa-edit" onClick = {e => onEditClicked(e)}></i>
                 <i className ="fas fa-trash-alt" onClick ={e => deleteItem(e)} ></i>
             </Card>
             ) : (
                 <Card style = {{backgroundColor : '#6dd44e'}}>
                     {uri.toLowerCase() === 'rejected'?(
-                        <AddForm rejected = {true} />
-                    ) : <AddForm rejected = {false} dateText = {uri + ' date'}/> }
+                        <AddForm rejected = {true} cancelForm = {e => onCancelClick(e)}
+                        handleChange = {e => onChange(e)}  companyName = {companyName} jobTitle = {jobTitle}
+                        applicationUrl = {applicationUrl} location = {location} date = {date} submitForm = {e => onSubmit(e)}/>
+
+                    ) : <AddForm rejected = {false} dateText = {uri + ' date'} cancelForm = {e => onCancelClick(e)}
+                    handleChange = {e => onChange(e)} companyName = {companyName} jobTitle = {jobTitle}
+                    applicationUrl = {applicationUrl} location = {location} date = {date} submitForm = {e => onSubmit(e)}/> }
                 </Card >
             )
         ) : (null)
@@ -149,9 +210,9 @@ SubCard.propTypes = {
     addInterview: PropTypes.func,
     addOffered: PropTypes.func,
     addAppliedTo: PropTypes.func,
-    addToApply: PropTypes.func
-
+    addToApply: PropTypes.func,
+    editItem: PropTypes.func
 }
 
 export default connect(null, {deleteToApply, addRejected, addInterview, addOffered, addToApply, addAppliedTo,
-     getRejected, getAppliedTo, getInterview, getOffered, getToApply})(SubCard);
+     getRejected, getAppliedTo, getInterview, getOffered, getToApply, editItem})(SubCard);
