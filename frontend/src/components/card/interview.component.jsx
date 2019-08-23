@@ -72,7 +72,7 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
 
     const onSubmit = async e => {
         e.preventDefault();
-        if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+        if(((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl)) && applicationUrl !== '')
         {
             alert("please enter a valid url");
         }else{
