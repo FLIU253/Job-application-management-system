@@ -9,6 +9,7 @@ import { addRejected, getRejected } from '../../redux/actions/rejected';
 import { addInterview, getInterview } from '../../redux/actions/interview';
 import { addOffered, getOffered } from '../../redux/actions/offered';
 import { addAppliedTo, getAppliedTo } from '../../redux/actions/appliedTo';
+import AddForm from '../add-form.component';
 
 const Card = styled.div`
     background: #fff;
@@ -93,6 +94,7 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
     })
 
     const [refresh, setRefresh] = useState(false);
+    const [edit, setEdit] = useState(false);
 
     const deleteItem = e => {
         e.preventDefault();
@@ -101,22 +103,36 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
         
     }
 
+    const editItem = e => {
+        e.preventDefault();
+        setEdit(true);
+    }
+    
     const opacity = isDragging ? 0.1 : 1
 
     return(
         !refresh ? (
-            <Card ref = {drag} style = {{opacity}}>
-            <CardText> <b>Company: </b>{data.companyName}</CardText>
-            <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
-            {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
-            {data.deadlineDate ? (<CardText><b>Deadline Date: </b>{data.deadlineDate.substring(0,10)}</CardText> ): null}
-            {data.appliedDate ? (<CardText><b>Applied Date: </b>{data.appliedDate.substring(0,10)}</CardText>) : null}
-            {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
-            {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
-            {data.applicationUrl ? (<CardText><b>Application URL: </b><a href={data.applicationUrl} target="_blank" rel="noopener noreferrer">{data.applicationUrl} </a></CardText>) : null}
-            <i className ="fas fa-trash-alt" onClick ={e => deleteItem(e)} ></i>
-        </Card>
-        ) : null
+            !edit ? (
+                <Card ref = {drag} style = {{opacity}}>
+                <CardText> <b>Company: </b>{data.companyName}</CardText>
+                <CardText> <b>Job Title: </b>{data.jobTitle}</CardText>
+                {data.location ? (  <CardText><b>Location: </b>{data.location}</CardText>) : null}
+                {data.deadlineDate ? (<CardText><b>Deadline Date: </b>{data.deadlineDate.substring(0,10)}</CardText> ): null}
+                {data.appliedDate ? (<CardText><b>Applied Date: </b>{data.appliedDate.substring(0,10)}</CardText>) : null}
+                {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
+                {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
+                {data.applicationUrl ? (<CardText><b>Application URL: </b><a href={data.applicationUrl} target="_blank" rel="noopener noreferrer">{data.applicationUrl} </a></CardText>) : null}
+                <i className ="fas fa-edit" onClick = {e => editItem(e)}></i>
+                <i className ="fas fa-trash-alt" onClick ={e => deleteItem(e)} ></i>
+            </Card>
+            ) : (
+                <Card style = {{backgroundColor : '#6dd44e'}}>
+                    {uri.toLowerCase() === 'rejected'?(
+                        <AddForm rejected = {true} />
+                    ) : <AddForm rejected = {false} dateText = {uri + ' date'}/> }
+                </Card >
+            )
+        ) : (null)
     );
 }
 

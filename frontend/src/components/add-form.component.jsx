@@ -19,6 +19,7 @@ const Input = styled.input`
   box-shadow: none;
   border: 0px none;
   padding: 0.5em 0.5em;
+  margin-bottom: 20px;
 
 `;
 const InputText = styled.p`

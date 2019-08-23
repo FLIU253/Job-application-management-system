@@ -14,3 +14,9 @@ p{
     justify-content: flex-end;
     cursor: pointer;
 }
+.fa-edit{
+    color:#17a312;
+    margin-left: 5px;
+    float: right;
+    cursor: pointer;
+}
