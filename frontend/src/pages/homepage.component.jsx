@@ -20,11 +20,11 @@ const CardSection = styled.div`
 class HomePage extends Component{
 
   render(){
-    const {isAuthenticated} = this.props;
+    const {loading} = this.props;
     return (
       <div>
       <Header/>
-    {isAuthenticated  ? (
+    {!loading  ? (
       <CardSection>
         <ToApply title = "To apply" />
         <AppliedTo title = "Applied To"/>
@@ -39,11 +39,11 @@ class HomePage extends Component{
 }
 
 HomePage.propTypes = {
-  isAuthenticated: PropTypes.bool
+  loading: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  loading: state.auth.loading
 });
 
 export default connect(mapStateToProps)(HomePage);

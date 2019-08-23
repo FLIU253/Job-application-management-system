@@ -6,6 +6,7 @@ import {getOffered, addOffered} from '../../redux/actions/offered';
 import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import validator from 'validator';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -76,9 +77,14 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
 
     const onSubmit = async e => {
         e.preventDefault();
-        setNewCard(false);
-        addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
-        getOffered();
+        if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+        {
+            alert("please enter a valid url");
+        }else{
+            setNewCard(false);
+            addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
+            getOffered();
+        }
     }
 
     const isActive = canDrop && isOver

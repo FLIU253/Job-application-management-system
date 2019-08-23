@@ -29,6 +29,7 @@ const LoginPage = ({login, isAuthenticated}) => {
 
   const onSubmit = async e => {
     e.preventDefault();
+    
     login(email, password);
   }
 

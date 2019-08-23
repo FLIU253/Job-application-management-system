@@ -6,6 +6,7 @@ import SubCard from './sub-card.component';
 import PropTypes from 'prop-types';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import validator from 'validator';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -73,9 +74,14 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
         }
         const onSubmit = async e => {
             e.preventDefault();
-            setNewCard(false);
-            addAppliedTo({companyName, jobTitle, applicationUrl, location, appliedDate});
-            getAppliedTo();
+            if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+            {
+                alert("please enter a valid url")
+            }else{
+                addAppliedTo({companyName, jobTitle, applicationUrl, location, appliedDate});
+                getAppliedTo();
+                setNewCard(false);
+            }
         }
 
         const isActive = canDrop && isOver
@@ -115,77 +121,6 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
            </Card>
         );
 }
-// class AppliedTo extends Component{
-
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             addNewCard: false,
-//             companyName: '',
-//             jobTitle: '',
-//             applicationUrl: '',
-//             location: '',
-//             appliedDate: ''
-//         }
-//     }
-
-//     componentDidMount(){
-//         this.props.getAppliedTo();
-//     }
-//     onAddNewCardClick =(e) => {
-//         e.preventDefault();
-//         this.setState({addNewCard: true});
-//     }
-
-//     onCancelClick = (e) => {
-//         e.preventDefault();
-//         this.setState({addNewCard: false});
-//     }
-
-//     onChange = e => {
-//         this.setState({[e.target.name]: e.target.value});
-//     }
-//     onSubmit = e => {
-//         const {companyName, jobTitle, applicationUrl, location, appliedDate} = this.state;
-//         e.preventDefault();
-//         this.setState({addNewCard: false});
-//         this.props.addAppliedTo({companyName, jobTitle, applicationUrl, location, appliedDate});
-//         this.props.getAppliedTo();
-//     }
-//     render(){
-//         const {title, appliedTo:{loading, appliedToList: {appliedTo}}} = this.props;
-//         return(
-//             <Card>
-//            <h3>{title}</h3>
-//            {loading ? <h1>LOADING</h1> : 
-//                 <div>
-//                 {appliedTo.length > 0 ? (
-//                     appliedTo.map(item => 
-//                     <SubCard key = {item._id} data = {item} uri = 'appliedTo'/>
-//                     )
-//                 ) : null}
-//                 </div>
-//             }
-            
-//            {this.state.addNewCard ? (
-//                 <CardWrapper>
-//                 <form onSubmit = {this.onSubmit}>
-//                 <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {this.state.companyName} onChange = {this.onChange} required/>
-//                 <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {this.state.jobTitle} onChange = {this.onChange} required/>
-//                 <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {this.state.applicationUrl} onChange = {this.onChange} />
-//                 <p>Location:</p> <input type="text"  name =  "location" value = {this.state.location} onChange = {this.onChange}/>
-//                 <p>Deadline Date:</p> <input type="date" name =  "appliedDate" value = {this.state.appliedDate} onChange = {this.onChange} />
-//                 <br/>
-//                 <button>Add</button>
-//                 <span> or </span>
-//                 <Cancel onClick = {this.onCancelClick}> Cancel </Cancel>
-//                </form>
-//             </CardWrapper>
-//             ) :  <AddCard onClick = {this.onAddNewCardClick}>Add a new card ...</AddCard>}
-//           </Card>
-//         );
-//     }
-// }
 
 AppliedTo.propTypes = {
     getAppliedTo: PropTypes.func.isRequired,

@@ -6,6 +6,7 @@ import {getToApply, addToApply} from '../../redux/actions/toApply';
 import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import validator from 'validator';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -76,9 +77,14 @@ const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setNewCard(false);
-        addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
-        getToApply();
+        if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+        {
+            alert("please enter a valid url");
+        }else{
+            setNewCard(false);
+            addToApply({companyName, jobTitle, applicationUrl, location, deadlineDate});
+            getToApply();
+        }
     }
 
     const isActive = canDrop && isOver

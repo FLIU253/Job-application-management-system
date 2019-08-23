@@ -113,7 +113,7 @@ const SubCard = ({data, uri, deleteToApply, addRejected, addInterview, addOffere
             {data.appliedDate ? (<CardText><b>Applied Date: </b>{data.appliedDate.substring(0,10)}</CardText>) : null}
             {data.interviewDate ? (<CardText><b>Interview Date: </b>{data.interviewDate.substring(0,10)}</CardText>) : null}
             {data.offerDeadlineDate ? (<CardText><b>Offer Deadline Date: </b>{data.offerDeadlineDate.substring(0,10)}</CardText>) : null}
-            {data.applicationUrl ? (<CardText><b>Application URL: </b>{data.applicationUrl}</CardText>) : null}
+            {data.applicationUrl ? (<CardText><b>Application URL: </b><a href={data.applicationUrl} target="_blank" rel="noopener noreferrer">{data.applicationUrl} </a></CardText>) : null}
             <i className ="fas fa-trash-alt" onClick ={e => deleteItem(e)} ></i>
         </Card>
         ) : null

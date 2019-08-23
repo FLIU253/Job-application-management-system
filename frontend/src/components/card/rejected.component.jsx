@@ -6,6 +6,7 @@ import {getRejected, addRejected} from '../../redux/actions/rejected';
 import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import validator from 'validator';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -73,9 +74,14 @@ const Rejected = ({title, getRejected, addRejected,rejected: {loading, rejectedL
 
     const onSubmit = async e => {
         e.preventDefault();
-        setNewCard(false);
-        addRejected({companyName, jobTitle, applicationUrl, location});
-        getRejected();
+        if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+        {
+            alert("please enter a valid url");
+        }else{
+            setNewCard(false);
+            addRejected({companyName, jobTitle, applicationUrl, location});
+            getRejected();
+        }
     }
 
     const isActive = canDrop && isOver

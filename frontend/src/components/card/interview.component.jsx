@@ -6,6 +6,7 @@ import {getInterview, addInterview} from '../../redux/actions/interview';
 import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
+import validator from 'validator';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -74,9 +75,14 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
 
     const onSubmit = async e => {
         e.preventDefault();
-        setNewCard(false);
-        addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
-        getInterview();
+        if((!applicationUrl.includes('https://') && !applicationUrl.includes('http://') )|| !validator.isURL(applicationUrl))
+        {
+            alert("please enter a valid url");
+        }else{
+            setNewCard(false);
+            addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
+            getInterview();
+        }
     }
 
     const isActive = canDrop && isOver
