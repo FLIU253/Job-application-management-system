@@ -7,6 +7,7 @@ import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
+import AddForm from '../add-form.component';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -35,10 +36,6 @@ const AddCard = styled.div`
     }
 `;
 
-const Cancel = styled.span`
-    cursor: pointer;
-`;
-
 const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: {offered}} }) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.SubCard,
@@ -55,10 +52,10 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
         jobTitle: '',
         applicationUrl: '',
         location: '',
-        offerDeadlineDate: ''
+        date: ''
     });
 
-    const {companyName, jobTitle, applicationUrl, location, offerDeadlineDate} = formData;
+    const {companyName, jobTitle, applicationUrl, location, date} = formData;
 
     useEffect(() => {
         getOffered();
@@ -82,7 +79,7 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
             alert("please enter a valid url");
         }else{
             setNewCard(false);
-            addOffered({companyName, jobTitle, applicationUrl, location, offerDeadlineDate});
+            addOffered({companyName, jobTitle, applicationUrl, location, date});
             getOffered();
         }
     }
@@ -107,17 +104,10 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
         }
        {newCard ? (
             <CardWrapper>
-             <form onSubmit = {e => onSubmit(e)}>
-            <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {companyName} onChange = {e => onChange(e)} required/>
-            <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {jobTitle} onChange = {e => onChange(e)} required/>
-            <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {applicationUrl} onChange = {e => onChange(e)} />
-            <p>Location:</p> <input type="text"  name =  "location" value = {location} onChange = {e => onChange(e)}/>
-            <p>Deadline Date:</p> <input type="date" name =  "offerDeadlineDate" value = {offerDeadlineDate} onChange = {e => onChange(e)} />
-            <br/>
-            <button>Add</button>
-            <span> or </span>
-            <Cancel onClick = {e => onCancelClick(e)}> Cancel </Cancel>
-           </form>
+              <AddForm submitForm = {e => onSubmit(e)} cancelForm = {e => onCancelClick(e)}
+                     handleChange = {e => onChange(e)} companyName = {companyName} jobTitle = {jobTitle}
+                     applicationUrl = {applicationUrl} location = {location} date = {date} dateText = 'Offer deadline date: '
+                />
         </CardWrapper>
         ) :  <AddCard onClick = {e => onAddNewCardClick(e)}>Add a new card ...</AddCard>}
       </Card>

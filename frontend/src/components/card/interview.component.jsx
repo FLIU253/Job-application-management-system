@@ -7,6 +7,7 @@ import SubCard from './sub-card.component';
 import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
+import AddForm from '../add-form.component';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -33,10 +34,6 @@ const AddCard = styled.div`
         color: black;
     }
 `;
-const Cancel = styled.span`
-    cursor: pointer;
-`;
-
 const Interview = ({getInterview, title, addInterview, interview: {loading, interviewList: {interview}}}) => {
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: ItemTypes.SubCard,
@@ -53,10 +50,10 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
         jobTitle: '',
         applicationUrl: '',
         location: '',
-        interviewDate: ''
+        date: ''
     });
 
-    const {companyName, jobTitle, applicationUrl, location, interviewDate} = formData;
+    const {companyName, jobTitle, applicationUrl, location, date} = formData;
 
     useEffect(() => {
         getInterview();
@@ -80,7 +77,7 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
             alert("please enter a valid url");
         }else{
             setNewCard(false);
-            addInterview({companyName, jobTitle, applicationUrl, location, interviewDate});
+            addInterview({companyName, jobTitle, applicationUrl, location, date});
             getInterview();
         }
     }
@@ -105,17 +102,10 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
          }
         {newCard ? (
              <CardWrapper>
-            <form onSubmit = {e => onSubmit(e)}>
-            <p>Company Name:</p> <input type="text"  name =  "companyName"  value = {companyName} onChange = {e => onChange(e)} required/>
-             <p>Position Name:</p> <input type="text" name =  "jobTitle" value = {jobTitle} onChange = {e => onChange(e)} required/>
-             <p>Application Link:</p> <input type="text" name =  "applicationUrl" value = {applicationUrl} onChange = {e => onChange(e)} />
-             <p>Location:</p> <input type="text"  name =  "location" value = {location} onChange = {e => onChange(e)}/>
-             <p>Deadline Date:</p> <input type="date" name =  "interviewDate" value = {interviewDate} onChange = {e => onChange(e)} />
-             <br/>
-             <button>Add</button>
-             <span> or </span>
-             <Cancel onClick = {e => onCancelClick(e)}> Cancel </Cancel>
-            </form>
+            <AddForm submitForm = {e => onSubmit(e)} cancelForm = {e => onCancelClick(e)}
+                     handleChange = {e => onChange(e)} companyName = {companyName} jobTitle = {jobTitle}
+                     applicationUrl = {applicationUrl} location = {location} date = {date} dateText = 'interview date: '
+                />
          </CardWrapper>
          ) :  <AddCard onClick = {e => onAddNewCardClick(e)}>Add a new card ...</AddCard>}
        </Card>
