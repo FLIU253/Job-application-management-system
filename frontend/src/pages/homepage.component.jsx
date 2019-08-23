@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import Header from '../components/header.component';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import loadingImg from '../assets/loading.gif';
 
 const CardSection = styled.div`
   display: flex;
@@ -15,6 +16,16 @@ const CardSection = styled.div`
   justify-content: flex-start;
   min-width: 400px;
   align-items: flex-start;
+`;
+
+const Loading = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80vh;
+  color: white;
 `;
 
 class HomePage extends Component{
@@ -32,7 +43,10 @@ class HomePage extends Component{
         <Rejected title = "Rejected"/>
         <Offered title = "Offered"/>
         </CardSection>
-    ) : (<h1>Loading</h1>)}
+    ) : (<Loading>
+      <img src = {loadingImg} alt = {" loading spinner"}/>
+      <h1>Loading...</h1>
+    </Loading>)}
       </div>
     );
   }
