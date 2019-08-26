@@ -8,7 +8,7 @@ import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
 import AddForm from '../add-form.component';
-
+import {PulseLoader} from 'react-spinners';
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
     border-radius: 3px;
@@ -92,7 +92,7 @@ const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {
     return(
         <Card ref = {drop} style = {{backgroundColor}}>
        <h3>{title}</h3>
-        {loading ? <h1>LOADING</h1> : 
+        {loading ? <PulseLoader color = {'#123abc'}/> : 
             <div>
             {toApply.length > 0 ? (
                 toApply.map(item => 

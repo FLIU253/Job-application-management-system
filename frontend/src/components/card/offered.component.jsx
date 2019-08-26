@@ -8,6 +8,7 @@ import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
 import AddForm from '../add-form.component';
+import {RingLoader} from 'react-spinners';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -95,7 +96,7 @@ const Offered = ({title, getOffered, addOffered,offered: {loading, offeredList: 
     return(
         <Card ref= {drop} style = {{backgroundColor}}> 
        <h3>{title}</h3>
-       {loading ? <h1>LOADING</h1> : 
+       {loading ? <RingLoader color = {'#123abc'}/> : 
             <div>
             {offered.length > 0 ? (
                 offered.map(item => 

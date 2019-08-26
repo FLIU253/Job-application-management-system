@@ -8,6 +8,7 @@ import {useDrop} from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
 import AddForm from '../add-form.component';
+import {PacmanLoader} from 'react-spinners';
 
 const Card = styled.div`
     background:rgba(222, 225, 227, 0.9);
@@ -91,7 +92,7 @@ const AppliedTo = ({title, getAppliedTo, appliedTo:{loading, appliedToList: {app
         return(
             <Card  ref = {drop} style = {{backgroundColor}}>
             <h3>{title}</h3>
-            {loading ? <h1>LOADING</h1> : 
+            {loading ? <PacmanLoader color = {'#123abc'}/> : 
                  <div>
                  {appliedTo.length > 0 ? (
                      appliedTo.map(item => 
