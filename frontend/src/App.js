@@ -3,7 +3,6 @@ import './App.css';
 import HomePage from './pages/homepage.component';
 import Login from './pages/login.component';
 import Register from './pages/register.component';
-import Alert from './components/alert.component';
 import {loadUser} from './redux/actions/auth';
 import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
@@ -24,7 +23,6 @@ export default class App extends Component{
   render() {
     return(
       <div>
-        <Alert/>
         <Switch>
         <Route  exact path = "/login" component = {Login}/>
         <Route  exact path = "/" component = {Login}/>

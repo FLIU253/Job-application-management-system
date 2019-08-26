@@ -62,7 +62,7 @@ const Interview = ({getInterview, title, addInterview, interview: {loading, inte
     const isActive = canDrop && isOver
     let backgroundColor = '#DEE1E3';
     if(isActive){
-        backgroundColor = '#d1a8a5';
+        backgroundColor = '#73f55f';
     }
 
     return(

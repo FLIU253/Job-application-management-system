@@ -7,6 +7,7 @@ import {login} from '../redux/actions/auth';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {CenteredDiv} from '../styles/frontpage.styles';
+import Alert from '../components/alert.component';
 
 const LoginPage = ({login, isAuthenticated}) => {
 
@@ -33,6 +34,7 @@ const LoginPage = ({login, isAuthenticated}) => {
   return(
     <CenteredDiv>
     <form onSubmit = {e => onSubmit(e)}>
+    <Alert/>
     <h1 style = {{color: '#fff'}}>JAMS</h1>
         <div>
         <FormInput type="email" required name="email" placeholder = "email" value = {email}  handleChange = {e => onChange(e)}/>

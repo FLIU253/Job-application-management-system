@@ -38,6 +38,10 @@ export const SignInButton = styled.button`
   cursor: pointer;
   margin-top: 15px;
   margin-bottom: 15px;
+  -webkit-transition: background-color 0.75s ease-out;
+  -moz-transition: background-color 0.75s ease-out;
+  -o-transition: background-color 0.75s ease-out;
+  transition: background-color 0.75s ease-out;
   :hover{
     background: #fff;
     color: #89609E;

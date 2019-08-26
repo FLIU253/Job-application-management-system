@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {CenteredDiv} from '../styles/frontpage.styles';
+import Alert from '../components/alert.component';
 
 const RegisterPage = ({register, setAlert, isAuthenticated }) => {
 
@@ -40,6 +41,7 @@ const RegisterPage = ({register, setAlert, isAuthenticated }) => {
     return(
         <CenteredDiv>
            <form onSubmit = {e => onSubmit(e)}>
+           <Alert/>
            <h1 style = {{color: '#fff'}}>JAMS</h1>
             <FormInput type = "text"  placeholder = "name" name="name" value = {name} handleChange = {e => onChange(e)} required/>
             <FormInput type = "email" placeholder = "email" name="email" value = {email} handleChange = {e => onChange(e)} required/>

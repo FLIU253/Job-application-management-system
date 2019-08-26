@@ -20,6 +20,10 @@ export const AddCard = styled.div`
     color: #797a7c;
     border-radius: 0 0 3px 3px;
     cursor: pointer;
+    -webkit-transition: background-color 0.75s ease-out;
+    -moz-transition: background-color 0.75s ease-out;
+    -o-transition: background-color 0.75s ease-out;
+    transition: background-color 0.75s ease-out;
     :hover{
         background:#ccbcbc;
         color: black;
