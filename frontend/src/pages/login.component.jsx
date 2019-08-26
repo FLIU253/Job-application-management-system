@@ -29,7 +29,7 @@ const LoginPage = ({login, isAuthenticated}) => {
 
   //Redirect if logged in
   if(isAuthenticated){
-    return <Redirect to ="/home"/>
+    return <Redirect to ="/home"/>  
   }
 
   return(
