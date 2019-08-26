@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_OFFERED, OFFERED_ERROR, ADD_OFFERED} from './types';
+import {GET_OFFERED, OFFERED_ERROR, ADD_OFFERED, CLEAR_OFFERED} from './types';
 import {setAlert} from './alert';
 
 //get all 'offered'
@@ -44,4 +44,8 @@ export const addOffered = ({companyName, jobTitle, applicationUrl, location, off
             payload: {msg: err.response, status: err.response}
         });
     }
+}
+
+export const clearOffered = () => dispatch => {
+    dispatch({type: CLEAR_OFFERED });
 }

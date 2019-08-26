@@ -38,3 +38,9 @@ export const ADD_REJECTED = 'ADD_REJECTED';
 export const ADD_OFFERED = 'ADD_OFFERED';
 
 export const DELETE_TO_APPLY = 'DELETE_TO_APPLY';
+
+export const CLEAR_TO_APPLY = 'CLEAR_TO_APPLY';
+export const CLEAR_APPLIED_TO = 'CLEAR_APLIED_TO';
+export const CLEAR_INTERVIEW = 'CLEAR_INTERVIEW';
+export const CLEAR_OFFERED = 'CLEAR_OFFERED';
+export const CLEAR_REJECTED = 'CLEARED_REJECTED';

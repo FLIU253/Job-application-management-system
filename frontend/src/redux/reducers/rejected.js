@@ -1,4 +1,4 @@
-import {GET_REJECTED, REJECTED_ERROR, ADD_REJECTED} from '../actions/types';
+import {GET_REJECTED, REJECTED_ERROR, ADD_REJECTED, CLEAR_REJECTED} from '../actions/types';
 
 
 const initialState = {
@@ -28,6 +28,12 @@ export default function(state=initialState, action){
                 ...state,
                 errors: payload,
                 loading: false
+            }
+        case CLEAR_REJECTED:
+            return{
+                ...state,
+                loading:true,
+                rejectedList: []
             }
         default:
             return state;

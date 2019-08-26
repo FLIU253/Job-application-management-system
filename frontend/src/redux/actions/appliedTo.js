@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_APPLIED_TO, APPLIED_ERROR, ADD_APPLIED_TO} from './types';
+import {GET_APPLIED_TO, APPLIED_ERROR, ADD_APPLIED_TO, CLEAR_APPLIED_TO} from './types';
 import {setAlert} from './alert';
 
 //get all 'to apply'
@@ -45,4 +45,7 @@ export const addAppliedTo = ({companyName, jobTitle, applicationUrl, location, a
             payload: {msg: err.response, status: err.response}
         });
     }
+}
+export const clearAppliedTo = () => dispatch => {
+    dispatch({type: CLEAR_APPLIED_TO });
 }

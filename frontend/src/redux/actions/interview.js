@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_INTERVIEW, INTERVIEW_ERROR, ADD_INTERVIEW} from './types';
+import {GET_INTERVIEW, INTERVIEW_ERROR, ADD_INTERVIEW, CLEAR_INTERVIEW} from './types';
 import {setAlert} from './alert';
 
 //get all 'interview'
@@ -44,4 +44,8 @@ export const addInterview = ({companyName, jobTitle, applicationUrl, location, i
             payload: {msg: err.response, status: err.response}
         });
     }
+}
+
+export const clearInterview = () => dispatch => {
+    dispatch({type: CLEAR_INTERVIEW });
 }

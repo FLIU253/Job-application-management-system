@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_REJECTED, REJECTED_ERROR, ADD_REJECTED} from './types';
+import {GET_REJECTED, REJECTED_ERROR, ADD_REJECTED, CLEAR_REJECTED} from './types';
 import {setAlert} from './alert';
 
 //get all 'rejected'
@@ -43,4 +43,8 @@ export const addRejected = ({companyName, jobTitle, applicationUrl, location}) =
             payload: {msg: err.response, status: err.response}
         });
     }
+}
+
+export const clearRejected = () => dispatch => {
+    dispatch({type: CLEAR_REJECTED });
 }

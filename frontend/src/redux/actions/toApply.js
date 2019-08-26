@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY, DELETE_TO_APPLY} from './types';
+import {GET_TO_APPLY, TO_APPLY_ERROR, ADD_TO_APPLY, DELETE_TO_APPLY, CLEAR_TO_APPLY} from './types';
 import {setAlert} from './alert';
 import {loadUser} from './auth';
 
@@ -89,4 +89,8 @@ export const editItem = (id, uri, formData) => async dispatch => {
             payload: {msg: err.response, status: err.response}
         });
     }
+}
+
+export const clearToApply = () => dispatch => {
+    dispatch({type: CLEAR_TO_APPLY });
 }

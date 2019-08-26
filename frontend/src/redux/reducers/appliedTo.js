@@ -1,4 +1,4 @@
-import {GET_APPLIED_TO, APPLIED_ERROR, ADD_APPLIED_TO} from '../actions/types';
+import {GET_APPLIED_TO, APPLIED_ERROR, ADD_APPLIED_TO, CLEAR_APPLIED_TO} from '../actions/types';
 
 
 const initialState = {
@@ -28,6 +28,12 @@ export default function(state=initialState, action){
                 ...state,
                 errors: payload,
                 loading: false
+            }
+        case CLEAR_APPLIED_TO:
+            return{
+                ...state,
+                appliedToList: [],
+                loading: true
             }
         default:
             return state;

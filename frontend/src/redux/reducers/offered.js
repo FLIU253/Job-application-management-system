@@ -1,4 +1,4 @@
-import {GET_OFFERED, OFFERED_ERROR, ADD_OFFERED} from '../actions/types';
+import {GET_OFFERED, OFFERED_ERROR, ADD_OFFERED, CLEAR_OFFERED} from '../actions/types';
 
 
 const initialState = {
@@ -28,6 +28,12 @@ export default function(state=initialState, action){
                 ...state,
                 errors: payload,
                 loading: false
+            }
+        case CLEAR_OFFERED:
+            return{
+                ...state,
+                loading: true,
+                offeredList: []
             }
         default:
             return state;
