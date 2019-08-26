@@ -1,22 +1,13 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import FormInput from '../components/form-input.component';
-import styled from 'styled-components';
 import CustomButton from '../components/custom-button.component';
 import {register} from '../redux/actions/auth';
 import {setAlert} from '../redux/actions/alert';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-
-const Register = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 80vh;
-`;
+import {CenteredDiv} from '../styles/frontpage.styles';
 
 const RegisterPage = ({register, setAlert, isAuthenticated }) => {
 
@@ -47,7 +38,7 @@ const RegisterPage = ({register, setAlert, isAuthenticated }) => {
     }
 
     return(
-        <Register>
+        <CenteredDiv>
            <form onSubmit = {e => onSubmit(e)}>
            <h1 style = {{color: '#fff'}}>JAMS</h1>
             <FormInput type = "text"  placeholder = "name" name="name" value = {name} handleChange = {e => onChange(e)} required/>
@@ -57,7 +48,7 @@ const RegisterPage = ({register, setAlert, isAuthenticated }) => {
             <CustomButton>Register</CustomButton>
            </form>
            <Link className = "link-to" to="/login">Sign In</Link>
-        </Register>
+        </CenteredDiv>
     );
 }
 

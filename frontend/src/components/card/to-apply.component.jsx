@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getToApply, addToApply} from '../../redux/actions/toApply';
@@ -9,31 +8,8 @@ import ItemTypes from '../../utils/ItemTypes';
 import validator from 'validator';
 import AddForm from '../add-form.component';
 import {PulseLoader} from 'react-spinners';
-const Card = styled.div`
-    background:rgba(222, 225, 227, 0.9);
-    border-radius: 3px;
-    margin: 1em 1em;
-    color:#4C4E50;
-    display: block;
-    width: 300px;
-`;
+import {Card,CardWrapper, AddCard} from '../../styles/card.styles';
 
-const CardWrapper = styled.div`
-    margin: 10px;
-`;
-
-const AddCard = styled.div`
-    display: block;
-    margin-top: 0.75em;
-    padding: 0.5em 0.75em;
-    color: #797a7c;
-    border-radius: 0 0 3px 3px;
-    cursor: pointer;
-    :hover{
-        background:#ccbcbc;
-        color: black;
-    }
-`;
 const ToApply = ({title, getToApply, addToApply,toApply:{loading, toApplyList: {toApply}}}) => {
     
     const [{ canDrop, isOver }, drop] = useDrop({

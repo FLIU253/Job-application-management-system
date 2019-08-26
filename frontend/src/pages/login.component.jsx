@@ -1,5 +1,4 @@
 import React , {useState}from 'react';
-import styled from 'styled-components';
 import FormInput from '../components/form-input.component';
 import CustomButton from '../components/custom-button.component';
 import {connect} from 'react-redux';
@@ -7,15 +6,8 @@ import PropTypes from 'prop-types';
 import {login} from '../redux/actions/auth';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import {CenteredDiv} from '../styles/frontpage.styles';
 
-const Login = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 80vh;
-`;
 const LoginPage = ({login, isAuthenticated}) => {
 
   const [formData, setFormData] = useState({
@@ -39,7 +31,7 @@ const LoginPage = ({login, isAuthenticated}) => {
   }
 
   return(
-    <Login>
+    <CenteredDiv>
     <form onSubmit = {e => onSubmit(e)}>
     <h1 style = {{color: '#fff'}}>JAMS</h1>
         <div>
@@ -48,10 +40,10 @@ const LoginPage = ({login, isAuthenticated}) => {
         <div> 
         <FormInput type="password" required name = "password" placeholder = "password" value = {password}  handleChange = {e => onChange(e)}/>
         </div>
-        <CustomButton>Login</CustomButton>
+        <CustomButton>login</CustomButton>
     </form>
       <Link to="/register" className = "link-to">Create new account</Link>
-  </Login>
+  </CenteredDiv>
   );
 };
 
