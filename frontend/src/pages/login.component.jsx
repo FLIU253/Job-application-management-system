@@ -8,6 +8,7 @@ import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {CenteredDiv} from '../styles/frontpage.styles';
 import Alert from '../components/alert.component';
+import logoImg from '../assets/logo.jpg';
 
 const LoginPage = ({login, isAuthenticated}) => {
 
@@ -35,7 +36,7 @@ const LoginPage = ({login, isAuthenticated}) => {
     <CenteredDiv>
     <form onSubmit = {e => onSubmit(e)}>
     <Alert/>
-    <h1 style = {{color: '#fff'}}>JAMS</h1>
+    <img src={logoImg} alt={"logo"}/>
         <div>
         <FormInput type="email" required name="email" placeholder = "email" value = {email}  handleChange = {e => onChange(e)}/>
         </div>

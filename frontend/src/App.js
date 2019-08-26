@@ -8,7 +8,7 @@ import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
 import {Route, Switch} from 'react-router-dom';
 import PrivateRoute from './utils/privateRoute';
-
+import NotFound from './pages/notfound.component';
 
 if(localStorage.token){
   setAuthToken(localStorage.token);
@@ -28,6 +28,7 @@ export default class App extends Component{
         <Route  exact path = "/" component = {Login}/>
         <Route exact path = "/register" component = {Register}/>
         <PrivateRoute exact path = "/home" component = {HomePage}/>
+        <Route component = {NotFound}/>
         </Switch>
       </div>
     );
