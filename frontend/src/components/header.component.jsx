@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../redux/actions/auth';
+import iconImg from '../assets/logo-cropped.jpg';
 
 const MainHeader = styled.header`
     background: #745286;
@@ -17,7 +18,7 @@ const Logout = styled.div`
     background: rgba(255, 255, 255, 0.15);
     border-radius: 3px;
     padding: .3em .5em;
-    margin-top: 10px;
+    margin-top: 15px;
     line-height: 1em;
     float: right;
     cursor: pointer; 
@@ -27,7 +28,7 @@ const Header = ({logout}) => {
 
     return(
        <MainHeader>
-           <span>JAMS</span>
+           <img src = {iconImg} alt = {"icon"} style = {{height: '50px'}}/>
            <Logout onClick = {logout}>Logout</Logout>
        </MainHeader>
     );
