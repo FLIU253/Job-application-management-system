@@ -28,7 +28,7 @@ const Header = ({logout}) => {
 
     return(
        <MainHeader>
-           <img src = {iconImg} alt = {"icon"} style = {{height: '50px'}}/>
+           <img src = {iconImg} alt = {"icon"} style = {{height: '50px'}}  data-aos="fade-down" />
            <Logout onClick = {logout}>Logout</Logout>
        </MainHeader>
     );

@@ -9,6 +9,7 @@ import setAuthToken from './utils/setAuthToken';
 import {Route, Switch} from 'react-router-dom';
 import PrivateRoute from './utils/privateRoute';
 import NotFound from './pages/notfound.component';
+import AOS from 'aos';
 
 if(localStorage.token){
   setAuthToken(localStorage.token);
@@ -18,6 +19,11 @@ export default class App extends Component{
 
   componentDidMount() {
     store.dispatch(loadUser());
+    AOS.init();
+  }
+
+  componentDidUpdate() {
+    AOS.refresh();
   }
    
   render() {

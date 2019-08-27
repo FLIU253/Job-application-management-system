@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "client" : "npm start --prefix ../frontend",
-    "dev" : "concurrently \"npm run server\" \"npm run client\" "
+    "client": "npm start --prefix ../frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,11 @@
     "config": "^3.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
+    "gridfs-stream": "^1.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.6.9"
+    "mongoose": "^5.6.9",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^3.3.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
