@@ -21,25 +21,36 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('resumes');
 });
-
 // Create storage engine
 const storage = new GridFsStorage({
     url: mongoURI,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
+    
+        gfs.files.find().toArray((err, files) => {
+          // Check if files
+          if (!files || files.length === 0) {
 
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
+            crypto.randomBytes(16, (err, buf) => {
+              if (err) {
+                return reject(err);
+              }
+              const filename = buf.toString('hex') + path.extname(file.originalname);
+              const fileInfo = {
+                filename: filename,
+                bucketName: 'resumes',
+                metadata: req.user.id
+              };
+              resolve(fileInfo);
+            });
+            
+          } else {  
+            return reject('resume exists');
           }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'resumes',
-            metadata: req.user.id
-          };
-          resolve(fileInfo);
         });
+
+
+
       });
     }
   });
@@ -102,7 +113,6 @@ router.delete('/resume/:id', (req, res) => {
     if (err) {
       return res.status(404).json({ err: err });
     }
-
     res.send({msg: 'resume deleted'});
   });
 });
