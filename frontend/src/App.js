@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from './pages/homepage.component';
 import Login from './pages/login.component';
 import Register from './pages/register.component';
+import ResumePage from './pages/resume.component';
 import {loadUser} from './redux/actions/auth';
 import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
@@ -33,6 +34,7 @@ export default class App extends Component{
         <Route  exact path = "/login" component = {Login}/>
         <Route  exact path = "/" component = {Login}/>
         <Route exact path = "/register" component = {Register}/>
+        <PrivateRoute exact path = "/resume" component = {ResumePage}/>
         <PrivateRoute exact path = "/home" component = {HomePage}/>
         <Route component = {NotFound}/>
         </Switch>
