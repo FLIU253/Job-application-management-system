@@ -95,5 +95,17 @@ router.get('/resume', auth, (req, res) => {
 });
 });
 
+// @route DELETE /resume/:id
+// @desc  Delete resume
+router.delete('/resume/:id', (req, res) => {
+  gfs.remove({ _id: req.params.id, root: 'resumes' }, (err, gridStore) => {
+    if (err) {
+      return res.status(404).json({ err: err });
+    }
+
+    res.send({msg: 'resume deleted'});
+  });
+});
+
 
 module.exports = router;
