@@ -7,6 +7,9 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const config = require('config');
 const mongoURI = config.get('mongoURI');
+const crypto = require('crypto');
+const path = require('path');
+
 // Create mongo connection
 const conn = mongoose.connection;
 
@@ -25,15 +28,18 @@ const storage = new GridFsStorage({
     file: (req, file) => {
       return new Promise((resolve, reject) => {
 
-          const filename = file.originalname;
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
           const fileInfo = {
             filename: filename,
-            bucketName: 'resume',
-            metadata: {
-                user: req.user.id
-            }
+            bucketName: 'resumes',
+            metadata: req.user.id
           };
           resolve(fileInfo);
+        });
       });
     }
   });
@@ -52,11 +58,42 @@ router.post('/resume', auth, upload.single('resume'), async (req , res) => {
     }
 })
 
+// @route GET /resume/json
+// @desc  Display resume file in JSON
+router.get('/resume/json', auth, (req, res) => {
+  gfs.files.findOne({ metadata: req.user.id }, (err, file) => {
+    // Check if file
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: 'No file exists'
+      });
+    }
+    // File exists
+    return res.json(file);
+  });
+});
 
-//@route    DELETE api/profile/delete
-//@desc     delete user profile's resume
-//@access   Private
-
+// @route GET /resume
+// @desc  Download the file
+router.get('/resume', auth, (req, res) => {
+  gfs.files.findOne({ metadata: req.user.id }, (err, file) => {
+    if(!file || file.length === 0){
+      return res.status(404).json({
+          responseCode: 1,
+          responseMessage: "error"
+      });
+    }
+  // create read stream
+  var readstream = gfs.createReadStream({
+      filename: file.filename,
+      root: "resumes"
+  });
+  // set the proper content type 
+  res.set('Content-Type', file.contentType)
+  // Return response
+  return readstream.pipe(res);
+});
+});
 
 
 module.exports = router;
