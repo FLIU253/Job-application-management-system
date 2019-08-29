@@ -1,12 +1,9 @@
 import axios from 'axios';
 import {RESUME_ADDED, RESUME_ERROR, DELETE_RESUME, GET_RESUME} from '../actions/types';
 
-export const addResume = (file) => async dispatch => {
+export const addResume = (resume) => async dispatch => {
     try{
-        const body = {
-            resume: file
-        }
-        const res = await axios.post('/api/resume', body);
+        const res = await axios.post('/api/resume', resume);
         console.log(res.data);
         dispatch({
             type: RESUME_ADDED,

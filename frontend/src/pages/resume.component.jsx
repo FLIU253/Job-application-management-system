@@ -11,18 +11,19 @@ const Upload = styled.input`
 
 const ResumePage = ({addResume}) => {
 
-    const [file, setFile] = useState('');
+    const [resume, setResume] = useState({});
 
 
     const onChangeHandler=event=>{
-        setFile(event.target.files[0]);
-        console.log(file);
+        setResume(event.target.files[0]);
     
     }
 
-    const onClickhandler = event => {
-        event.preventDefault();
-        addResume(file);
+    const onClickhandler = () => {
+        let formData = new FormData();
+        formData.append('resume', resume);
+        addResume(formData);
+        console.log(formData);
     }
     
     return(
@@ -30,7 +31,7 @@ const ResumePage = ({addResume}) => {
             <h1>Upload Resume</h1>
             <Upload type="file" name="file" id="file" onChange = {event => onChangeHandler(event)}/>
             <label htmlFor="file">Choose a file</label>
-            <button onClick = {event => onClickhandler(event)}>Upload</button>
+            <button onClick = {() => onClickhandler()}>Upload</button>
         </CenteredDiv>
     );
 }
