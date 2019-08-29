@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {RESUME_ADDED, RESUME_ERROR, DELETE_RESUME, GET_RESUME} from '../actions/types';
+import FileSaver from 'file-saver';
 
 export const addResume = (resume) => async dispatch => {
     try{
@@ -21,7 +22,6 @@ export const addResume = (resume) => async dispatch => {
 export const getResumeInJson = () => async dispatch => {
     try{
         const res = await axios.get('/api/resume/json');
-
         dispatch({
             type: GET_RESUME,
             payload: res.data
@@ -37,11 +37,15 @@ export const getResumeInJson = () => async dispatch => {
 
 export const getResumeInFile = () => async dispatch => {
     try{
-        const res = await axios.get('/api/resume');
-
+        const res = await axios.get('/api/resume', {responseType: 'blob'});
+        // const res = await axios.get('/api/resume', {responseType: 'blob'});
+        console.log(res);
+        let url = window.URL.createObjectURL(res.data);
+        console.log(url);
+        // FileSaver.saveAs(res.data, 'resume.pdf');
         dispatch({
             type: GET_RESUME,
-            payload: res.data
+            payload: url
         });
 
     }catch(err){
@@ -52,9 +56,9 @@ export const getResumeInFile = () => async dispatch => {
     }
 }
 
-export const deleteResume = () => async dispatch => {
+export const deleteResume = (id) => async dispatch => {
     try{
-        const res = await axios.delete('/api/resume');
+        const res = await axios.delete(`/api/resume/${id}`);
 
         dispatch({
             type: DELETE_RESUME,
