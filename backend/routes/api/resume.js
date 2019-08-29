@@ -26,7 +26,6 @@ const storage = new GridFsStorage({
     url: mongoURI,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
-    
         gfs.files.find().toArray((err, files) => {
           // Check if files
           if (!files || files.length === 0) {
@@ -62,6 +61,8 @@ const storage = new GridFsStorage({
 //@access   Private
 router.post('/resume', auth, upload.single('resume'), async (req , res) => {
     try{
+        console.log('resume uploaded');
+        console.log(req.file);
         res.json({file: req.file});
     }catch(err){
         console.error(err.message);

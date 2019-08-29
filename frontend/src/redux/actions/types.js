@@ -44,3 +44,9 @@ export const CLEAR_APPLIED_TO = 'CLEAR_APLIED_TO';
 export const CLEAR_INTERVIEW = 'CLEAR_INTERVIEW';
 export const CLEAR_OFFERED = 'CLEAR_OFFERED';
 export const CLEAR_REJECTED = 'CLEARED_REJECTED';
+
+
+export const GET_RESUME = 'GET_RESUME';
+export const RESUME_ADDED = 'RESUME_ADDED';
+export const RESUME_ERROR = 'RESUME_ERROR';
+export const DELETE_RESUME = 'DELETE_RESUME';

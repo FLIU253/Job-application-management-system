@@ -6,6 +6,7 @@ import appliedTo from './appliedTo';
 import interview from './interview';
 import rejected from './rejected';
 import offered from './offered';
+import resume from './resume';
 
 export default combineReducers({
     auth,
@@ -14,5 +15,6 @@ export default combineReducers({
     appliedTo,
     interview,
     rejected,
-    offered
+    offered,
+    resume
 });
