@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {RESUME_ADDED, RESUME_ERROR, DELETE_RESUME, GET_RESUME} from '../actions/types';
-import FileSaver from 'file-saver';
 
 export const addResume = (resume) => async dispatch => {
     try{
@@ -38,11 +37,9 @@ export const getResumeInJson = () => async dispatch => {
 export const getResumeInFile = () => async dispatch => {
     try{
         const res = await axios.get('/api/resume', {responseType: 'blob'});
-        // const res = await axios.get('/api/resume', {responseType: 'blob'});
-        console.log(res);
+        // console.log(res);
         let url = window.URL.createObjectURL(res.data);
-        console.log(url);
-        // FileSaver.saveAs(res.data, 'resume.pdf');
+        // console.log(url);
         dispatch({
             type: GET_RESUME,
             payload: url
