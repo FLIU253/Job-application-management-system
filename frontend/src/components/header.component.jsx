@@ -36,7 +36,7 @@ const Header = ({logout}) => {
            <img src = {iconImg} alt = {"icon"} style = {{height: '50px'}}  data-aos="fade-down" />
            <HeaderButtons onClick = {logout}>Logout</HeaderButtons>
            <HeaderButtons><Link to = "/resume" className = "link-to">My Resume</Link></HeaderButtons>
-        
+           <HeaderButtons><Link to = "/home" className = "link-to">Home</Link></HeaderButtons>
        </MainHeader>
     );
 }

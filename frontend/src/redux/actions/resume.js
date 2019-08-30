@@ -8,8 +8,8 @@ export const addResume = (resume) => async dispatch => {
         dispatch({
             type: RESUME_ADDED,
             payload: res.data
-        });
-
+    });
+        dispatch(getResumeInFile());
     }catch(err){
         dispatch({
             type: RESUME_ERROR,

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {addResume, getResumeInFile, getResumeInJson, deleteResume} from '../redux/actions/resume';
 import FileSaver from 'file-saver';
 import {SignInButton} from '../styles/button.styles';
+import Header from '../components/header.component';
 
 const Upload = styled.input`
     color: white;
@@ -52,6 +53,8 @@ const ResumePage = ({addResume, getResumeInFile, currentResume, getResumeInJson,
     }
 
     return(
+      <div>
+        <Header/>
         <CenteredDiv style = {{color: '#fff'}}>
          {Object.entries(currentResume.resume).length === 0 && currentResume.resume.constructor === Object ? (
                 <div>
@@ -60,17 +63,18 @@ const ResumePage = ({addResume, getResumeInFile, currentResume, getResumeInJson,
                  <br/>
                  <SignInButton onClick = {() => onClickhandler()}>Upload</SignInButton>
              </div>
-         ) : !currentResume.loading ? (
-            <div  style = {{marginTop: '100px'}}>
+         ) :
+            <div  style = {{marginTop: '20px'}}>
              <OnlineView href={currentResume.resume}>View Online Here</OnlineView>
              <br/>
-             <SignInButton onClick = {() => onDownloadClick()}>Download Resume Here!</SignInButton>
-             <SignInButton onClick = {() => onDeleteClick()}>DELETE</SignInButton>
+             <SignInButton onClick = {() => onDownloadClick()} style = {{marginRight: '5px'}}>Download Resume Here!</SignInButton>
+             <SignInButton onClick = {() => onDeleteClick()} style = {{marginLeft: '5px'}}>DELETE</SignInButton>
              <br/>
              <embed src={currentResume.resume} style = {{height: '700px', width: '800px'}}></embed>
             </div>
-         ) : null}
+            }
         </CenteredDiv>
+      </div>
     );
 }
 
