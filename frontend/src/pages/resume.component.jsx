@@ -3,7 +3,7 @@ import {CenteredDiv} from '../styles/frontpage.styles';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addResume, getResumeInFile} from '../redux/actions/resume';
+import {addResume, getResumeInFile, getResumeInJson, deleteResume} from '../redux/actions/resume';
 import FileSaver from 'file-saver';
 import {SignInButton} from '../styles/button.styles';
 
@@ -22,14 +22,15 @@ const OnlineView = styled.a`
 
 
 
-const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
+const ResumePage = ({addResume, getResumeInFile, currentResume, getResumeInJson, deleteResume}) => {
 
     const [resume, setResume] = useState({});
-
+    const [resumeId, setResumeId] = useState('');
     
     useEffect(() => {
         getResumeInFile();
-    }, [getResumeInFile])
+        getResumeInJson();
+    }, [getResumeInFile, getResumeInJson])
 
     const onChangeHandler=event=>{
         setResume(event.target.files[0]);
@@ -46,6 +47,11 @@ const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
         FileSaver.saveAs(currentResume.resume, 'resume.pdf');
     }
     
+    const onDeleteClick = () => {
+        let id = currentResume.resumeInJson._id;
+        deleteResume(id);
+    }
+
     return(
         <CenteredDiv style = {{color: '#fff'}}>
          {Object.entries(currentResume.resume).length === 0 && currentResume.resume.constructor === Object ? (
@@ -60,6 +66,7 @@ const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
              <OnlineView href={currentResume.resume}>View Online Here</OnlineView>
              <br/>
              <SignInButton onClick = {() => onDownloadClick()}>Download Resume Here!</SignInButton>
+             <SignInButton onClick = {() => onDeleteClick()}>DELETE</SignInButton>
              <br/>
              <embed src={currentResume.resume} style = {{height: '700px', width: '800px'}}></embed>
             </div>
@@ -71,6 +78,8 @@ const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
 ResumePage.propTypes = {
     addResume: PropTypes.func.isRequired,
     getResumeInFile: PropTypes.func.isRequired,
+    getResumeInJson: PropTypes.func.isRequired,
+    deleteResume: PropTypes.func.isRequired,
     currentResume: PropTypes.object
   };
   
@@ -78,4 +87,4 @@ const mapStateToProps = state => ({
     currentResume: state.resume
 })
 
-export default connect(mapStateToProps, {addResume, getResumeInFile})(ResumePage);
+export default connect(mapStateToProps, {addResume, getResumeInFile, getResumeInJson, deleteResume})(ResumePage);

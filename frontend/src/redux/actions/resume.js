@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RESUME_ADDED, RESUME_ERROR, DELETE_RESUME, GET_RESUME} from '../actions/types';
+import {RESUME_ADDED, RESUME_ERROR, DELETE_RESUME, GET_RESUME, GET_RESUME_JSON} from '../actions/types';
 
 export const addResume = (resume) => async dispatch => {
     try{
@@ -22,7 +22,7 @@ export const getResumeInJson = () => async dispatch => {
     try{
         const res = await axios.get('/api/resume/json');
         dispatch({
-            type: GET_RESUME,
+            type: GET_RESUME_JSON,
             payload: res.data
         });
 

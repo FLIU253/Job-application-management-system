@@ -47,6 +47,7 @@ export const CLEAR_REJECTED = 'CLEARED_REJECTED';
 
 
 export const GET_RESUME = 'GET_RESUME';
+export const GET_RESUME_JSON = 'GET_RESUME_JSON';
 export const RESUME_ADDED = 'RESUME_ADDED';
 export const RESUME_ERROR = 'RESUME_ERROR';
 export const DELETE_RESUME = 'DELETE_RESUME';
