@@ -25,7 +25,6 @@ const OnlineView = styled.a`
 const ResumePage = ({addResume, getResumeInFile, currentResume, getResumeInJson, deleteResume}) => {
 
     const [resume, setResume] = useState({});
-    const [resumeId, setResumeId] = useState('');
     
     useEffect(() => {
         getResumeInFile();
@@ -57,7 +56,7 @@ const ResumePage = ({addResume, getResumeInFile, currentResume, getResumeInJson,
          {Object.entries(currentResume.resume).length === 0 && currentResume.resume.constructor === Object ? (
                 <div>
                  <h1>Upload Resume</h1>
-                 <Upload type="file" name="file" id="file" onChange = {event => onChangeHandler(event)}/>
+                 <Upload type="file" name="file" id="file" onChange = {event => onChangeHandler(event)} accept="application/pdf, application/docx, application/doc" />
                  <br/>
                  <SignInButton onClick = {() => onClickhandler()}>Upload</SignInButton>
              </div>
