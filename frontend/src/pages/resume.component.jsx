@@ -5,10 +5,22 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addResume, getResumeInFile} from '../redux/actions/resume';
 import FileSaver from 'file-saver';
+import {SignInButton} from '../styles/button.styles';
 
 const Upload = styled.input`
     color: white;
 `;
+
+const OnlineView = styled.a`
+    color: white;
+    font-weight: 500;
+    font-size: 30px;
+    :hover{
+        color: yellow;
+    }
+`;
+
+
 
 const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
 
@@ -36,16 +48,22 @@ const ResumePage = ({addResume, getResumeInFile, currentResume}) => {
     
     return(
         <CenteredDiv style = {{color: '#fff'}}>
-            <h1>Upload Resume</h1>
-            <Upload type="file" name="file" id="file" onChange = {event => onChangeHandler(event)}/>
-            <label htmlFor="file">Choose a file</label>
-            <button onClick = {() => onClickhandler()}>Upload</button>
-            {!currentResume.loading ? (
-               <div>
-                <a href={currentResume.resume}>Url</a>
-                <button onClick = {() => onDownloadClick()}>Download Resume Here!</button>
-               </div>
-            ) : null}
+         {Object.entries(currentResume.resume).length === 0 && currentResume.resume.constructor === Object ? (
+                <div>
+                 <h1>Upload Resume</h1>
+                 <Upload type="file" name="file" id="file" onChange = {event => onChangeHandler(event)}/>
+                 <br/>
+                 <SignInButton onClick = {() => onClickhandler()}>Upload</SignInButton>
+             </div>
+         ) : !currentResume.loading ? (
+            <div  style = {{marginTop: '100px'}}>
+             <OnlineView href={currentResume.resume}>View Online Here</OnlineView>
+             <br/>
+             <SignInButton onClick = {() => onDownloadClick()}>Download Resume Here!</SignInButton>
+             <br/>
+             <embed src={currentResume.resume} style = {{height: '700px', width: '800px'}}></embed>
+            </div>
+         ) : null}
         </CenteredDiv>
     );
 }
