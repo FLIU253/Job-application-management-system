@@ -24,9 +24,9 @@ connectDB();
 app.use(express.json({extended: false}));
 
 //Define Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api', require('./routes/api/resume'));
+app.use('/api/users', require('./routes/api/users'))
+app.use('/api/auth', require('./routes/api/auth'))
+app.use('/api', require('./routes/api/resume'))
 
 //Serve static assets in production
 if(process.env.NODE_ENV === 'production' ){

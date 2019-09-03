@@ -1,17 +1,20 @@
 {
-  "name": "backend",
+  "name": "jams",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "jams is a job application management system",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "client": "npm start --prefix ../frontend",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "10.15.3"
   },
   "keywords": [],
-  "author": "",
+  "author": "Franklin Liu",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
